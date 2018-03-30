@@ -1,13 +1,24 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import logger from 'redux-logger';
+// import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+
+import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+
 import rootReducer from './redux';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export default function configureStore(preloadedState) {
+  const sagaMiddleware = createSagaMiddleware();
+  const middlewares = [thunk, sagaMiddleware];
+  const middlewareEnhancer = applyMiddleware(...middlewares);
 
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(logger, thunkMiddleware)),
-);
+  const storeEnhancers = [middlewareEnhancer];
 
-export default store;
+  const composedEnhancer = composeWithDevTools(...storeEnhancers);
+
+  const store = createStore(rootReducer, preloadedState, composedEnhancer);
+
+  store.runSaga = sagaMiddleware.run;
+
+  return store;
+}

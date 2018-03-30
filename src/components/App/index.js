@@ -15,21 +15,10 @@ export default class App extends Component {
   componentDidMount() {
     // let timer = setInterval(this.start, 1000);
     // this.setState({ timer });
-    this.start();
+    this.props.startGame();
     // Interval runs every other second (aka 1 sec)
     // this.interval = setInterval(this.attack.bind(this), 1000);
   }
-
-  stop = () => {
-    clearInterval(this.timerId);
-  };
-  start = () => {
-    if (!this.timerId) {
-      this.timerId = setInterval(() => {
-        this.incrementValues();
-      }, 1000 / 10);
-    }
-  };
 
   incrementValues = () => {
     const { stats } = this.props;

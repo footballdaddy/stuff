@@ -4,6 +4,7 @@
 const INCREMENT_STAT = 'gotg/stat/INCREMENT_STAT';
 const DECREMENT_STAT = 'gotg/stat/DECREMENT_STAT';
 const INCREMENT_VALUE = 'gotg/stat/INCREMENT_VALUE';
+const START_GAME = 'gotg/stat/START_GAME';
 
 // Actions ---------------------------------------------------------------------
 
@@ -20,6 +21,9 @@ export const decrementStat = (stat, rate) => ({
 export const incrementValue = key => ({
   type: INCREMENT_VALUE,
   key,
+});
+export const startGame = () => ({
+  type: START_GAME,
 });
 
 // Reducer ---------------------------------------------------------------------
