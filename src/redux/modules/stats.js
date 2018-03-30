@@ -4,8 +4,8 @@
 const INCREMENT_STAT = 'gotg/stat/INCREMENT_STAT';
 const DECREMENT_STAT = 'gotg/stat/DECREMENT_STAT';
 const INCREMENT_VALUE = 'gotg/stat/INCREMENT_VALUE';
-const START_GAME = 'gotg/stat/START_GAME';
 const CALCULATE_ATTACK = 'gotg/stat/CALCULATE_ATTACK';
+const CALCULATE_DEFENSE = 'gotg/stat/CALCULATE_DEFENSE';
 
 // Actions ---------------------------------------------------------------------
 
@@ -24,12 +24,13 @@ export const incrementValue = (key, value) => ({
   key,
   value,
 });
-export const startGame = () => ({
-  type: START_GAME,
-});
 
 export const calculateAttack = value => ({
   type: CALCULATE_ATTACK,
+  value,
+});
+export const calculateDefense = value => ({
+  type: CALCULATE_DEFENSE,
   value,
 });
 // Reducer ---------------------------------------------------------------------
@@ -45,25 +46,59 @@ const initialState = {
   defense: {
     stat: 0,
   },
+  health: {
+    stat: 0,
+  },
+  healthregen: {
+    stat: 0,
+  },
   regularstrength: {
     rate: 0,
     level: 1,
     value: 1,
+    stattype: 'strength',
   },
   lesserstrength: {
     rate: 0,
     level: 1,
     value: 1000,
+    stattype: 'strength',
   },
   greaterstrength: {
     rate: 0,
     level: 1,
     value: 2000,
+    stattype: 'strength',
   },
   ultimatestrength: {
     rate: 0,
     level: 1,
     value: 10000,
+    stattype: 'strength',
+  },
+  regulardefense: {
+    rate: 0,
+    level: 1,
+    value: 1,
+    stattype: 'defense',
+  },
+  lesserdefense: {
+    rate: 0,
+    level: 1,
+    value: 1000,
+    stattype: 'defense',
+  },
+  greaterdefense: {
+    rate: 0,
+    level: 1,
+    value: 2000,
+    stattype: 'defense',
+  },
+  ultimatedefense: {
+    rate: 0,
+    level: 1,
+    value: 10000,
+    stattype: 'defense',
   },
 };
 
@@ -115,6 +150,11 @@ export default function statReducer(state = initialState, action) {
       return {
         ...state,
         attack: { ...state.attack, stat: action.value },
+      };
+    case CALCULATE_DEFENSE:
+      return {
+        ...state,
+        defense: { ...state.defense, stat: action.value },
       };
     default:
       return state;

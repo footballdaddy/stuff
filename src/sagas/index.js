@@ -1,7 +1,11 @@
 import { delay } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 import { getStatData } from '../selectors';
-import { incrementValue, calculateAttack } from '../redux/modules/stats';
+import {
+  incrementValue,
+  calculateAttack,
+  calculateDefense,
+} from '../redux/modules/stats';
 
 export default function* gameLoop() {
   const frameRate = 50;
@@ -23,14 +27,18 @@ export default function* gameLoop() {
   function* update() {
     while (true) {
       let attackStat = 0;
+      let defenselevel = 0;
       statData = yield select(getStatData);
       currentTime = Date.now();
       deltaTime = currentTime - lastUpdateTime;
       lastUpdateTime = currentTime;
 
       for (let key in statData) {
-        if (statData[key].level > 1)
+        if (statData[key].stattype === 'strength' && statData[key].level > 1)
           attackStat = attackStat + statData[key].level * statData[key].value;
+        if (statData[key].stattype === 'defense' && statData[key].level > 1)
+          defenselevel = attackStat + statData[key].level * statData[key].value;
+
         if (statData[key].rate > 0) {
           yield put(
             incrementValue(key, statData[key].rate * 50 * deltaTime / 1000),
@@ -38,6 +46,7 @@ export default function* gameLoop() {
         }
       }
       yield put(calculateAttack(attackStat));
+      yield put(calculateDefense(defenselevel));
       yield delay(1000 / frameRate);
     }
   }
