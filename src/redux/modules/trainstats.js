@@ -5,7 +5,6 @@ const INCREMENT_STAT = 'gotg/stat/INCREMENT_STAT';
 const DECREMENT_STAT = 'gotg/stat/DECREMENT_STAT';
 const INCREMENT_VALUE = 'gotg/stat/INCREMENT_VALUE';
 const START_GAME = 'gotg/stat/START_GAME';
-const CALCULATE_ATTACK = 'gotg/stat/CALCULATE_ATTACK';
 
 // Actions ---------------------------------------------------------------------
 
@@ -28,10 +27,6 @@ export const startGame = () => ({
   type: START_GAME,
 });
 
-export const calculateAttack = value => ({
-  type: CALCULATE_ATTACK,
-  value,
-});
 // Reducer ---------------------------------------------------------------------
 const initialState = {
   energy: {
@@ -39,31 +34,21 @@ const initialState = {
     value: 10,
     maxValue: 10,
   },
-  attack: {
-    stat: 0,
-  },
-  defense: {
-    stat: 0,
-  },
   regularstrength: {
     rate: 0,
-    level: 1,
     value: 1,
   },
   lesserstrength: {
     rate: 0,
-    level: 1,
-    value: 1000,
+    value: 1,
   },
   greaterstrength: {
     rate: 0,
-    level: 1,
-    value: 2000,
+    value: 1,
   },
   ultimatestrength: {
     rate: 0,
-    level: 1,
-    value: 10000,
+    value: 1,
   },
 };
 
@@ -74,7 +59,7 @@ export default function statReducer(state = initialState, action) {
         ...state,
         [action.key]: {
           ...state[action.key],
-          level: action.value + state[action.key].level,
+          level: action.value + state[action.key].value,
         },
       };
 
@@ -111,11 +96,6 @@ export default function statReducer(state = initialState, action) {
           },
         };
       }
-    case CALCULATE_ATTACK:
-      return {
-        ...state,
-        attack: { ...state.attack, stat: action.value },
-      };
     default:
       return state;
   }

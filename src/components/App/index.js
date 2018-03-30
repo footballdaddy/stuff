@@ -15,7 +15,7 @@ export default class App extends Component {
   componentDidMount() {
     // let timer = setInterval(this.start, 1000);
     // this.setState({ timer });
-    this.props.startGame();
+    // this.props.startGame();
     // Interval runs every other second (aka 1 sec)
     // this.interval = setInterval(this.attack.bind(this), 1000);
   }
@@ -37,7 +37,7 @@ export default class App extends Component {
   render() {
     const { stats } = this.props;
     return (
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div
           style={{
             display: 'flex',
@@ -47,9 +47,15 @@ export default class App extends Component {
           }}
         >
           <h1>Energy: {stats.energy.value}</h1>
-          <div>
-            <Strength {...this.props} />
-          </div>
+        </div>
+        <div>
+          <Strength {...this.props} />
+        </div>
+        <div>
+          <h1>Attack: {stats.attack.stat}</h1>
+        </div>
+        <div>
+          <h1>Defense: {stats.defense.stat}</h1>
         </div>
       </div>
     );
