@@ -4,11 +4,16 @@ import { getStatData } from '../selectors';
 import {
   incrementValue,
   calculateAttack,
+  calculateHealth,
   calculateDefense,
+  calculateHealthRegen,
+  calculateSpirit,
+  calculateSpiritLevel,
 } from '../redux/modules/stats';
 
 export default function* gameLoop() {
   const frameRate = 50;
+  const calcWSecFrame = frameRate / 1000;
   let lastUpdateTime = Date.now();
   let currentTime;
   let deltaTime;
@@ -27,7 +32,7 @@ export default function* gameLoop() {
   function* update() {
     while (true) {
       let attackStat = 0;
-      let defenselevel = 0;
+      let defenseStat = 0;
       statData = yield select(getStatData);
       currentTime = Date.now();
       deltaTime = currentTime - lastUpdateTime;
@@ -37,16 +42,29 @@ export default function* gameLoop() {
         if (statData[key].stattype === 'strength' && statData[key].level > 1)
           attackStat = attackStat + statData[key].level * statData[key].value;
         if (statData[key].stattype === 'defense' && statData[key].level > 1)
-          defenselevel = attackStat + statData[key].level * statData[key].value;
+          defenseStat = attackStat + statData[key].level * statData[key].value;
 
         if (statData[key].rate > 0) {
           yield put(
-            incrementValue(key, statData[key].rate * 50 * deltaTime / 1000),
+            incrementValue(
+              key,
+              statData[key].rate * frameRate * deltaTime / 1000,
+            ),
           );
         }
       }
+      attackStat = attackStat + 100;
+      defenseStat = defenseStat + 100;
       yield put(calculateAttack(attackStat));
-      yield put(calculateDefense(defenselevel));
+      yield put(calculateDefense(defenseStat));
+      yield put(calculateSpiritLevel(statData.energy.rateSpirit / frameRate));
+      // if (
+      //   statData.energy.level + statData.energy.rateSpirit <=
+      //   statData.energy.cap
+      // )
+      //   yield put(calculateSpiritLevel(statData.energy.rateSpirit / frameRate));
+      yield put(calculateHealth(defenseStat / 20 * calcWSecFrame));
+      // console.log(defenseStat);
       yield delay(1000 / frameRate);
     }
   }

@@ -25,7 +25,10 @@ export default class App extends Component {
             justifyContent: 'center',
           }}
         >
-          <h1>Energy: {stats.energy.value}</h1>
+          <h1>
+            Energy: {Math.ceil(stats.energy.value)}/
+            {Math.ceil(stats.energy.level)}
+          </h1>
         </div>
         <div>
           <Strength {...this.props} />
@@ -40,10 +43,12 @@ export default class App extends Component {
           <h1>Defense: {stats.defense.stat}</h1>
         </div>
         <div>
-          <h1>Health: {stats.health.stat}</h1>
+          <h1>
+            Health: {stats.health.currenthealth} / {stats.health.stat}
+          </h1>
         </div>
         <div>
-          <h1>Health Regen: {stats.healthregen.stat}</h1>
+          <h1>Health Regen: {stats.health.healthregen}</h1>
         </div>
       </div>
     );

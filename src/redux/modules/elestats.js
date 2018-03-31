@@ -192,13 +192,27 @@ export default function statReducer(state = initialState, action) {
         health: { ...state.health, healthregen: action.value / 20 },
       };
     case CALCULATE_HEALTH:
+      console.log(state.health.currenthealth);
+      // console.log(action.value);
       if (state.health.currenthealth + action.value <= state.health.stat) {
         return {
           ...state,
           health: {
             ...state.health,
-            currenthealth: state.health.currenthealth + action.value,
+            currenthealth: state.currenthealth + action.value,
           },
+        };
+      } else {
+        return {
+          ...state,
+          health: { ...state.health, currenthealth: state.health.stat },
+        };
+      }
+    case CALCULATE_HEALTH_LEVEL:
+      if (state.health.currenthealth + action.value <= state.health.stat) {
+        return {
+          ...state,
+          health: { ...state.health, currenthealth: action.value * 10 },
         };
       } else {
         return {
@@ -227,7 +241,6 @@ export default function statReducer(state = initialState, action) {
           energy: {
             ...state.energy,
             level: state.energy.level + action.value,
-            value: state.energy.value + action.value,
           },
         };
       } else {
