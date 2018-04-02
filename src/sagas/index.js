@@ -70,7 +70,9 @@ export default function* gameLoop() {
       defenseStat = defenseStat + 100;
       yield put(calculateAttack(attackStat));
       yield put(calculateDefense(defenseStat));
-      yield put(calculateSpiritLevel(statData.energy.rateSpirit / frameRate));
+      yield put(
+        calculateSpiritLevel(statData.energy.rateSpirit * 5 / frameRate),
+      );
       yield put(calculateHealth(defenseStat / 20 * calcWSecFrame));
       yield delay(1000 / frameRate);
     }

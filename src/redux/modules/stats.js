@@ -4,6 +4,7 @@
 const INCREMENT_STAT = 'gotg/stat/INCREMENT_STAT';
 const DECREMENT_STAT = 'gotg/stat/DECREMENT_STAT';
 const INCREMENT_VALUE = 'gotg/stat/INCREMENT_VALUE';
+const INCREMENT_ENERGY_VALUE = 'gotg/stat/INCREMENT_ENERGY_VALUE';
 const CALCULATE_ATTACK = 'gotg/stat/CALCULATE_ATTACK';
 const CALCULATE_DEFENSE = 'gotg/stat/CALCULATE_DEFENSE';
 const CALCULATE_SPIRIT = 'gotg/stat/CALCULATE_SPIRIT';
@@ -29,6 +30,11 @@ export const decrementStat = (stat, rate) => ({
 });
 export const incrementValue = (key, value) => ({
   type: INCREMENT_VALUE,
+  key,
+  value,
+});
+export const incrementEnergyValue = (key, value) => ({
+  type: INCREMENT_ENERGY_VALUE,
   key,
   value,
 });
@@ -278,6 +284,8 @@ export default function statReducer(state = initialState, action) {
         // console.log(state.energy.level + action.value);
         return state;
       }
+    case INCREMENT_ENERGY_VALUE:
+      return state;
     // case CALCULATE_REBIRTH:
     //   return {
     //     ...state,
