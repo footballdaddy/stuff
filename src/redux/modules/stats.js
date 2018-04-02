@@ -11,6 +11,8 @@ const CALCULATE_SPIRIT_LEVEL = 'gotg/stat/CALCULATE_SPIRIT_LEVEL';
 const CALCULATE_HEALTH = 'gotg/stat/CALCULATE_HEALTH';
 const CALCULATE_HEALTH_REGEN = 'gotg/stat/CALCULATE_HEALTH_REGEN';
 const CALCULATE_HEALTH_LEVEL = 'gotg/stat/CALCULATE_HEALTH_LEVEL';
+const CALCULATE_CAP_TRAIN = 'gotg/stat/CALCULATE_CAP_TRAIN';
+const CALCULATE_REBIRTH = 'gotg/stat/CALCULATE_REBIRTH';
 
 // Actions ---------------------------------------------------------------------
 
@@ -19,6 +21,7 @@ export const incrementStat = (stat, rate) => ({
   stat,
   rate,
 });
+
 export const decrementStat = (stat, rate) => ({
   type: DECREMENT_STAT,
   stat,
@@ -49,6 +52,11 @@ export const calculateHealthLevel = value => ({
   type: CALCULATE_HEALTH_LEVEL,
   value,
 });
+export const calculateCapTrain = (key, value) => ({
+  type: CALCULATE_CAP_TRAIN,
+  key,
+  value,
+});
 
 export const calculateAttack = value => ({
   type: CALCULATE_ATTACK,
@@ -57,6 +65,10 @@ export const calculateAttack = value => ({
 export const calculateDefense = value => ({
   type: CALCULATE_DEFENSE,
   value,
+});
+export const calculateRebirth = key => ({
+  type: CALCULATE_REBIRTH,
+  key,
 });
 // Reducer ---------------------------------------------------------------------
 const initialState = {
@@ -67,6 +79,7 @@ const initialState = {
     cap: 100,
     stattype: 'energy',
   },
+  rebirth: false,
   attack: {
     stat: 0,
   },
@@ -85,49 +98,80 @@ const initialState = {
   regularstrength: {
     rate: 0,
     level: 1,
-    value: 1,
+    value: 150,
+    cap: 2500,
+    capexp: 0,
+    exp: 0,
     stattype: 'strength',
   },
   lesserstrength: {
     rate: 0,
     level: 1,
     value: 1000,
+    cap: 15000,
+    capexp: 0,
+
+    exp: 0,
     stattype: 'strength',
   },
   greaterstrength: {
     rate: 0,
     level: 1,
     value: 2000,
+    cap: 30000,
+    capexp: 0,
+
+    exp: 0,
     stattype: 'strength',
   },
   ultimatestrength: {
     rate: 0,
     level: 1,
     value: 10000,
+    cap: 50000,
+    capexp: 0,
+
+    exp: 0,
     stattype: 'strength',
   },
   regulardefense: {
     rate: 0,
     level: 1,
     value: 1,
+    exp: 0,
+    cap: 2500,
+    capexp: 0,
+
     stattype: 'defense',
   },
   lesserdefense: {
     rate: 0,
     level: 1,
     value: 1000,
+    exp: 0,
+    cap: 2500,
+    capexp: 0,
+
     stattype: 'defense',
   },
   greaterdefense: {
     rate: 0,
     level: 1,
     value: 2000,
+    exp: 0,
+    cap: 2500,
+    capexp: 0,
+
     stattype: 'defense',
   },
   ultimatedefense: {
     rate: 0,
     level: 1,
     value: 10000,
+    exp: 0,
+    cap: 2500,
+    capexp: 0,
+
     stattype: 'defense',
   },
 };
@@ -139,7 +183,7 @@ export default function statReducer(state = initialState, action) {
         ...state,
         [action.key]: {
           ...state[action.key],
-          level: action.value + state[action.key].level,
+          exp: action.value + state[action.key].exp,
         },
       };
 
@@ -233,6 +277,41 @@ export default function statReducer(state = initialState, action) {
       } else {
         // console.log(state.energy.level + action.value);
         return state;
+      }
+    // case CALCULATE_REBIRTH:
+    //   return {
+    //     ...state,
+    //     [action.stat]: {
+    //       ...state[action.stat],
+    //       cap: state[action.stat].cap * 0.2 *
+    //       (stats[action.stat].exp /
+    //         stats[strengthStat + 'strength'].cap)
+    //     },
+    //     energy: {
+    //       ...state.energy,
+    //       value: state.energy.value - action.rate,
+    //     },
+    //   };
+    case CALCULATE_REBIRTH:
+      let capLvlRate = state[action.key].exp / state[action.key].cap;
+      if (0.2 * capLvlRate <= state[action.key].cap * 0.1) {
+        return {
+          ...state,
+          [action.key]: {
+            ...state[action.key],
+            cap: state[action.key].cap - 0.2 * capLvlRate,
+            exp: 0,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          [action.key]: {
+            ...state[action.key],
+            cap: state[action.key].cap - state[action.key].cap * 0.1,
+            exp: 0,
+          },
+        };
       }
     default:
       return state;

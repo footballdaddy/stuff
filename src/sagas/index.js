@@ -9,6 +9,7 @@ import {
   calculateHealthRegen,
   calculateSpirit,
   calculateSpiritLevel,
+  calculateCapTrain,
 } from '../redux/modules/stats';
 
 export default function* gameLoop() {
@@ -39,10 +40,22 @@ export default function* gameLoop() {
       lastUpdateTime = currentTime;
 
       for (let key in statData) {
-        if (statData[key].stattype === 'strength' && statData[key].level > 1)
-          attackStat = attackStat + statData[key].level * statData[key].value;
-        if (statData[key].stattype === 'defense' && statData[key].level > 1)
-          defenseStat = attackStat + statData[key].level * statData[key].value;
+        // if (statData.rebirth) {
+        //   if (
+        //     statData[key].stattype === 'defense' ||
+        //     statData[key].stattype === 'strength'
+        //   ) {
+        //     yield put(calculateCapTrain(key));
+        //   }
+        // }
+        if (statData[key].stattype === 'strength' && statData[key].exp > 1)
+          attackStat =
+            attackStat +
+            statData[key].exp / statData[key].cap * statData[key].value;
+        if (statData[key].stattype === 'defense' && statData[key].exp > 1)
+          defenseStat =
+            defenseStat +
+            statData[key].exp / statData[key].cap * statData[key].value;
 
         if (statData[key].rate > 0) {
           yield put(
@@ -58,13 +71,7 @@ export default function* gameLoop() {
       yield put(calculateAttack(attackStat));
       yield put(calculateDefense(defenseStat));
       yield put(calculateSpiritLevel(statData.energy.rateSpirit / frameRate));
-      // if (
-      //   statData.energy.level + statData.energy.rateSpirit <=
-      //   statData.energy.cap
-      // )
-      //   yield put(calculateSpiritLevel(statData.energy.rateSpirit / frameRate));
       yield put(calculateHealth(defenseStat / 20 * calcWSecFrame));
-      // console.log(defenseStat);
       yield delay(1000 / frameRate);
     }
   }

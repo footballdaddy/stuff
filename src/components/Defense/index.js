@@ -15,8 +15,10 @@ export default class defense extends Component {
         {defenseList.map((defenseStat, i) => (
           <div key={i}>
             <label id="value">
-              {defenseStat} defense {stats[defenseStat + 'defense'].level}. Rate
-              Value: {stats[defenseStat + 'defense'].rate}
+              {defenseStat} defense{' '}
+              {stats[defenseStat + 'defense'].exp /
+                stats[defenseStat + 'defense'].cap}. Rate Value:{' '}
+              {stats[defenseStat + 'defense'].rate}
             </label>
             <button
               onClick={() =>

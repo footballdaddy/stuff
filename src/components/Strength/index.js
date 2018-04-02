@@ -15,9 +15,21 @@ export default class Strength extends Component {
         {strengthList.map((strengthStat, i) => (
           <div key={i}>
             <label id="value">
-              {strengthStat} Strength{' '}
-              {Math.floor(stats[strengthStat + 'strength'].level)}. Rate Value:{' '}
-              {stats[strengthStat + 'strength'].rate}
+              {strengthStat} Strength Current Cap:{' '}
+              {stats[strengthStat + 'strength'].cap} Reduce Gain:{' '}
+              {0.2 *
+                (stats[strengthStat + 'strength'].exp /
+                  stats[strengthStat + 'strength'].cap) <=
+              250
+                ? 0.2 *
+                  (stats[strengthStat + 'strength'].exp /
+                    stats[strengthStat + 'strength'].cap)
+                : stats[strengthStat + 'strength'].cap}
+              <br />
+              Current Level:
+              {stats[strengthStat + 'strength'].exp /
+                stats[strengthStat + 'strength'].cap}{' '}
+              Rate Value: {stats[strengthStat + 'strength'].rate}
             </label>
             <button
               onClick={() =>

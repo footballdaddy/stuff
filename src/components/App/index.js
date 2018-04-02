@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Strength from '../Strength';
 import Defense from '../Defense';
+import Rebirth from '../Rebirth';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +14,11 @@ export default class App extends Component {
     incrementStat: PropTypes.func,
     decrementStat: PropTypes.func,
   };
+
+  // rebirthStats = () => {
+  //   callRebirth();
+  // };
+
   render() {
     const { stats } = this.props;
     return (
@@ -48,7 +54,10 @@ export default class App extends Component {
           </h1>
         </div>
         <div>
-          <h1>Health Regen: {stats.health.healthregen}</h1>
+          <h1>Health Regen: {stats.defense.stat / 20}</h1>
+        </div>
+        <div>
+          <Rebirth {...this.props} />
         </div>
       </div>
     );
