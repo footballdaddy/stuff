@@ -17,11 +17,11 @@ export default class Strength extends Component {
             <label id="value">
               {strengthStat} Strength Current Cap:{' '}
               {stats[strengthStat + 'strength'].cap} Reduce Gain:{' '}
-              {stats[strengthStat + 'strength'].rateGrowth *
+              {0.2 *
                 (stats[strengthStat + 'strength'].exp /
                   stats[strengthStat + 'strength'].cap) <=
               250
-                ? stats[strengthStat + 'strength'].rateGrowth *
+                ? 0.2 *
                   (stats[strengthStat + 'strength'].exp /
                     stats[strengthStat + 'strength'].cap)
                 : stats[strengthStat + 'strength'].cap}

@@ -14,6 +14,7 @@ const CALCULATE_HEALTH_REGEN = 'gotg/stat/CALCULATE_HEALTH_REGEN';
 const CALCULATE_HEALTH_LEVEL = 'gotg/stat/CALCULATE_HEALTH_LEVEL';
 const CALCULATE_CAP_TRAIN = 'gotg/stat/CALCULATE_CAP_TRAIN';
 const CALCULATE_REBIRTH = 'gotg/stat/CALCULATE_REBIRTH';
+const CALCULATE_SPIRIT_REBIRTH = 'gotg/stat/CALCULATE_SPIRIT_REBIRTH';
 
 // Actions ---------------------------------------------------------------------
 
@@ -76,10 +77,15 @@ export const calculateRebirth = key => ({
   type: CALCULATE_REBIRTH,
   key,
 });
+export const calculateSpiritRebirth = key => ({
+  type: CALCULATE_SPIRIT_REBIRTH,
+  key,
+});
 // Reducer ---------------------------------------------------------------------
 const initialState = {
   energy: {
     rateSpirit: 1,
+    exp: 0,
     value: 10,
     level: 10,
     cap: 100,
@@ -108,6 +114,7 @@ const initialState = {
     cap: 2500,
     capexp: 0,
     exp: 0,
+    rateGrowth: 0.2,
     stattype: 'strength',
   },
   lesserstrength: {
@@ -116,6 +123,7 @@ const initialState = {
     value: 1000,
     cap: 15000,
     capexp: 0,
+    rateGrowth: 0.18,
 
     exp: 0,
     stattype: 'strength',
@@ -126,6 +134,7 @@ const initialState = {
     value: 2000,
     cap: 30000,
     capexp: 0,
+    rateGrowth: 0.16,
 
     exp: 0,
     stattype: 'strength',
@@ -136,6 +145,7 @@ const initialState = {
     value: 10000,
     cap: 50000,
     capexp: 0,
+    rateGrowth: 0.14,
 
     exp: 0,
     stattype: 'strength',
@@ -147,6 +157,7 @@ const initialState = {
     exp: 0,
     cap: 2500,
     capexp: 0,
+    rateGrowth: 0.2,
 
     stattype: 'defense',
   },
@@ -157,6 +168,7 @@ const initialState = {
     exp: 0,
     cap: 2500,
     capexp: 0,
+    rateGrowth: 0.18,
 
     stattype: 'defense',
   },
@@ -167,6 +179,7 @@ const initialState = {
     exp: 0,
     cap: 2500,
     capexp: 0,
+    rateGrowth: 0.16,
 
     stattype: 'defense',
   },
@@ -177,6 +190,7 @@ const initialState = {
     exp: 0,
     cap: 2500,
     capexp: 0,
+    rateGrowth: 0.14,
 
     stattype: 'defense',
   },
@@ -264,10 +278,17 @@ export default function statReducer(state = initialState, action) {
           energy: {
             ...state.energy,
             value: state.energy.value + action.value,
+            exp: state.energy.value + action.value,
           },
         };
       } else {
-        return state;
+        return {
+          ...state,
+          energy: {
+            ...state.energy,
+            exp: state.energy.value + action.value,
+          },
+        };
       }
 
     case CALCULATE_SPIRIT_LEVEL:
@@ -278,37 +299,64 @@ export default function statReducer(state = initialState, action) {
             ...state.energy,
             level: state.energy.level + action.value,
             value: state.energy.value + action.value,
+            exp: state.energy.value + action.value,
           },
         };
       } else {
-        // console.log(state.energy.level + action.value);
-        return state;
+        return {
+          ...state,
+          energy: {
+            ...state.energy,
+            exp: state.energy.value + action.value,
+          },
+        };
       }
-    case INCREMENT_ENERGY_VALUE:
-      return state;
-    // case CALCULATE_REBIRTH:
-    //   return {
-    //     ...state,
-    //     [action.stat]: {
-    //       ...state[action.stat],
-    //       cap: state[action.stat].cap * 0.2 *
-    //       (stats[action.stat].exp /
-    //         stats[strengthStat + 'strength'].cap)
-    //     },
-    //     energy: {
-    //       ...state.energy,
-    //       value: state.energy.value - action.rate,
-    //     },
-    //   };
+    case CALCULATE_SPIRIT_REBIRTH:
+      if (1 / 20 * state.energy.exp <= 100000) {
+        return {
+          ...state,
+          energy: {
+            ...state.energy,
+            level: 10,
+            value: 10,
+            cap: state.energy.cap + 1 / 20 * state.energy.exp,
+          },
+          health: {
+            stat: 100,
+            currenthealth: 10,
+            healthregen: 0,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          energy: {
+            ...state.energy,
+            level: 10,
+            value: 10,
+            cap: state.energy.cap + 100000,
+          },
+          health: {
+            stat: 100,
+            currenthealth: 10,
+            healthregen: 0,
+          },
+        };
+      }
     case CALCULATE_REBIRTH:
       let capLvlRate = state[action.key].exp / state[action.key].cap;
-      if (0.2 * capLvlRate <= state[action.key].cap * 0.1) {
+      if (
+        state[action.key].rateGrowth * capLvlRate <=
+        state[action.key].cap * 0.1
+      ) {
         return {
           ...state,
           [action.key]: {
             ...state[action.key],
-            cap: state[action.key].cap - 0.2 * capLvlRate,
+            cap:
+              state[action.key].cap - state[action.key].rateGrowth * capLvlRate,
             exp: 0,
+            rate: 0,
           },
         };
       } else {
@@ -318,6 +366,7 @@ export default function statReducer(state = initialState, action) {
             ...state[action.key],
             cap: state[action.key].cap - state[action.key].cap * 0.1,
             exp: 0,
+            rate: 0,
           },
         };
       }

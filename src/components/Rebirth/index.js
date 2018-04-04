@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { calculateRebirth } from '../../redux/modules/stats';
 export default class Rebirth extends Component {
   calculateRebirthStats = () => {
     const { stats } = this.props;
@@ -12,6 +11,7 @@ export default class Rebirth extends Component {
         this.props.calculateRebirth(key);
       }
     }
+    this.props.calculateSpiritRebirth();
   };
 
   render() {
