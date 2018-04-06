@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
-import { getStatData } from '../selectors';
+import { getStatData, getGameData, getEnemyData } from '../selectors';
 import {
   incrementValue,
   calculateAttack,
@@ -10,7 +10,16 @@ import {
   calculateSpirit,
   calculateSpiritLevel,
   calculateCapTrain,
+  enemyAttacks,
 } from '../redux/modules/stats';
+
+import { victory, defeat } from '../redux/modules/game';
+import {
+  nextEnemy,
+  playerAttacks,
+  increaseEnemyCounter,
+  calculateEnemyHealth,
+} from '../redux/modules/enemy';
 
 export default function* gameLoop() {
   const frameRate = 50;
@@ -19,6 +28,8 @@ export default function* gameLoop() {
   let currentTime;
   let deltaTime;
   let statData = yield select(getStatData);
+  let gameData = yield select(getGameData);
+  let enemyData = yield select(getEnemyData);
   // let valuePerSecond = yield select(getValuePerSecond);
   // let lootSpeed = yield select(getLootSpeed);
   // let loot = yield select(getLoot);
@@ -35,19 +46,37 @@ export default function* gameLoop() {
       let attackStat = 0;
       let defenseStat = 0;
       statData = yield select(getStatData);
+      gameData = yield select(getGameData);
+      enemyData = yield select(getEnemyData);
       currentTime = Date.now();
       deltaTime = currentTime - lastUpdateTime;
       lastUpdateTime = currentTime;
-
+      // console.log(enemyData.stats.defense);
+      if (gameData.isFighting) {
+        if (statData.health.currenthealth > 0)
+          yield put(
+            playerAttacks(
+              statData.attack.stat * frameRate / 1000,
+              enemyData.stats.defense * frameRate / 1000,
+            ),
+          );
+        else {
+          yield put(defeat());
+        }
+        if (enemyData.health > 0) {
+          yield put(
+            enemyAttacks(
+              enemyData.stats.strength * frameRate / 1000,
+              statData.defense.stat * frameRate / 1000,
+            ),
+          );
+        } else {
+          yield put(victory());
+          yield put(increaseEnemyCounter());
+          yield put(nextEnemy());
+        }
+      }
       for (let key in statData) {
-        // if (statData.rebirth) {
-        //   if (
-        //     statData[key].stattype === 'defense' ||
-        //     statData[key].stattype === 'strength'
-        //   ) {
-        //     yield put(calculateCapTrain(key));
-        //   }
-        // }
         if (statData[key].stattype === 'strength' && statData[key].exp > 1)
           attackStat =
             attackStat +
@@ -66,14 +95,18 @@ export default function* gameLoop() {
           );
         }
       }
-      attackStat = attackStat + 100;
-      defenseStat = defenseStat + 100;
+      attackStat = attackStat + 10;
+      defenseStat = defenseStat + 10;
       yield put(calculateAttack(attackStat));
       yield put(calculateDefense(defenseStat));
       yield put(
         calculateSpiritLevel(statData.energy.rateSpirit * 5 / frameRate),
       );
       yield put(calculateHealth(defenseStat / 20 * calcWSecFrame));
+      yield put(
+        calculateEnemyHealth(enemyData.stats.defense / 20 * calcWSecFrame),
+      );
+
       yield delay(1000 / frameRate);
     }
   }

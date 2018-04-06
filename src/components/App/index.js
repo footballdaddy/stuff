@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Strength from '../Strength';
 import Defense from '../Defense';
 import Rebirth from '../Rebirth';
+import BattleContainer from '../../containers/BattleContainer';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -58,6 +59,9 @@ export default class App extends Component {
         </div>
         <div>
           <Rebirth {...this.props} />
+        </div>
+        <div>
+          <BattleContainer />
         </div>
       </div>
     );

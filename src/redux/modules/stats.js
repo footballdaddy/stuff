@@ -81,6 +81,14 @@ export const calculateSpiritRebirth = key => ({
   type: CALCULATE_SPIRIT_REBIRTH,
   key,
 });
+
+// Battle
+
+export const enemyAttacks = (enemyattack, playerDefense) => ({
+  type: 'ENEMY_ATTACKS',
+  damage: enemyattack - playerDefense,
+});
+
 // Reducer ---------------------------------------------------------------------
 const initialState = {
   energy: {
@@ -198,6 +206,18 @@ const initialState = {
 
 export default function statReducer(state = initialState, action) {
   switch (action.type) {
+    // Battle
+    case 'ENEMY_ATTACKS':
+      return {
+        ...state,
+        health: {
+          ...state.health,
+          currenthealth:
+            action.damage < 0
+              ? state.health.currenthealth
+              : state.health.currenthealth - action.damage,
+        },
+      };
     case INCREMENT_VALUE:
       return {
         ...state,
@@ -244,6 +264,7 @@ export default function statReducer(state = initialState, action) {
       return {
         ...state,
         attack: { ...state.attack, stat: action.value },
+        health: { ...state.health, stat: action.value * 10 },
       };
     case CALCULATE_DEFENSE:
       return {
@@ -270,7 +291,21 @@ export default function statReducer(state = initialState, action) {
           health: { ...state.health, currenthealth: state.health.stat },
         };
       }
-
+    // case 'CALCULATE_MAX_HEALTH':
+    // if (state.health.currenthealth + action.value <= state.health.stat) {
+    //   return {
+    //     ...state,
+    //     health: {
+    //       ...state.health,
+    //       currenthealth: state.health.currenthealth + action.value,
+    //     },
+    //   };
+    // } else {
+    //   return {
+    //     ...state,
+    //     health: { ...state.health, currenthealth: state.health.stat },
+    //   };
+    // }
     case CALCULATE_SPIRIT:
       if (state.energy.value + action.value <= state.energy.level) {
         return {
@@ -343,6 +378,7 @@ export default function statReducer(state = initialState, action) {
           },
         };
       }
+
     case CALCULATE_REBIRTH:
       let capLvlRate = state[action.key].exp / state[action.key].cap;
       if (
