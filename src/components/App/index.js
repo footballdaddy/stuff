@@ -4,6 +4,10 @@ import Strength from '../Strength';
 import Defense from '../Defense';
 import Rebirth from '../Rebirth';
 import BattleContainer from '../../containers/BattleContainer';
+import InventoryPanel from '../../containers/InventoryPanel';
+import EquipmentPanel from '../../containers/EquipmentPanel';
+import StatsPanel from '../../containers/StatsPanel';
+import Arena from '../../containers/Arena';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -62,6 +66,18 @@ export default class App extends Component {
         </div>
         <div>
           <BattleContainer />
+        </div>
+        <div>
+          <InventoryPanel />
+        </div>
+        <div>
+          <EquipmentPanel />
+        </div>
+        <div>
+          <StatsPanel />
+        </div>
+        <div>
+          <Arena />
         </div>
       </div>
     );

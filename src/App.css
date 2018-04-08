@@ -1,0 +1,1141 @@
+/* importing variables */
+/* importing page elements */
+.main-container {
+  border: 2px solid black;
+  width: 880px;
+  height: 700px;
+  margin: auto;
+  margin-top: 200px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar {
+  margin-top: 5px;
+  width: 98%;
+  height: 130px;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  list-style: none;
+}
+.navbar .navbar-el {
+  border: 1px solid black;
+  width: 16%;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+.navbar .navbar-el-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 80px;
+}
+.navbar .navbar-el-img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.navbar .navbar-el-title {
+  padding: 5px;
+  font-size: 20px;
+}
+
+.footer {
+  width: 100%;
+  height: 50px;
+  background-color: grey;
+  padding-top: 5px;
+}
+.footer p {
+  text-align: center;
+}
+
+.shop {
+  background-image: url(./img/backgrounds/shop_bg.png);
+  background-size: 100% 100%;
+}
+
+.blacksmith {
+  background-image: url(./img/backgrounds/blacksmith_bg.png);
+  background-size: cover;
+}
+
+.inn {
+  background-image: url(./img/backgrounds/inn_bg.jpg);
+  background-size: 100% 100%;
+}
+
+.inn-box {
+  width: 400px;
+  margin-right: 15px;
+}
+.inn-box .dialog-message {
+  padding: 10px;
+}
+.inn-box .item-description {
+  padding: 0 10px 10px 10px;
+}
+
+.shop,
+.blacksmith,
+.inn {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 400px;
+}
+
+.dialog-box {
+  width: 100%;
+  height: 100px;
+}
+.dialog-box .item-description p {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.location-box {
+  width: 500px;
+  height: 500px;
+}
+.location-box .dialog-message {
+  padding: 10px;
+}
+.location-box .item-description {
+  padding: 0 10px 10px 10px;
+}
+
+.item-container {
+  width: 95%;
+  border: 1px solid black;
+  margin-bottom: 5px;
+}
+.item-container .item-title {
+  width: 100%;
+  background-color: grey;
+  padding-left: 5px;
+}
+.item-container .item-icon {
+  width: 45px;
+  height: 45px;
+  background-size: contain;
+}
+.item-container .buy-btn,
+.item-container .sell-btn {
+  font-weight: 700;
+  font-size: 15px;
+  height: 32px;
+  width: 40px;
+  border: none;
+}
+.item-container .buy-btn.enabled,
+.item-container .sell-btn.enabled {
+  background-color: #afd9ae;
+}
+.item-container .buy-btn.disabled,
+.item-container .sell-btn.disabled {
+  background-color: #db3039;
+}
+.item-container .equip-btn {
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  width: 90px;
+  justify-content: space-around;
+}
+.item-container .equip-btn .equip-icon {
+  width: 35px;
+  height: 35px;
+}
+.item-container .item-data {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 5px;
+}
+.item-container .price {
+  font-size: 20px;
+  padding: 2px;
+}
+
+.buy-panel {
+  height: 100%;
+}
+
+.price {
+  font-size: 20px;
+  padding: 2px;
+}
+
+.inventory-header {
+  font-size: 18px;
+  margin-bottom: 11px;
+}
+
+.gold-container,
+.inventory-header {
+  justify-content: center;
+  text-align: center;
+  width: 190px;
+}
+
+.sell-panel {
+  max-height: 430px;
+}
+
+.id_1 {
+  background-image: url('./img/icons/potions/1_small_health_potion.png');
+}
+
+.id_2 {
+  background-image: url('./img/icons/potions/2_medium_health_potion.png');
+}
+
+.id_3 {
+  background-image: url('./img/icons/potions/3_large_health_potion.png');
+}
+
+.id_4 {
+  background-image: url('./img/icons/potions/4_alchemists_fire.png');
+}
+
+.id_5 {
+  background-image: url('./img/icons/potions/5_freeze_blast.png');
+}
+
+.id_6 {
+  background-image: url('./img/icons/potions/6_strength_potion.png');
+}
+
+.id_7 {
+  background-image: url('./img/icons/potions/7_defense_potion.png');
+}
+
+.id_8 {
+  background-image: url('./img/icons/potions/8_agility_potion.png');
+}
+
+.id_9 {
+  background-image: url('./img/icons/potions/9_vitality_potion.png');
+}
+
+.id_10 {
+  background-image: url('./img/icons/oils/10_peruns_might.png');
+}
+
+.id_11 {
+  background-image: url('./img/icons/oils/11_holy_water.png');
+}
+
+.id_12 {
+  background-image: url('./img/icons/oils/12_poison.png');
+}
+
+.id_13 {
+  background-image: url('./img/icons/necklaces/13_accuracy_necklace.png');
+}
+
+.id_14 {
+  background-image: url('./img/icons/necklaces/14_strength_necklace.png');
+}
+
+.id_15 {
+  background-image: url('./img/icons/necklaces/15_defense_necklace.png');
+}
+
+.id_16 {
+  background-image: url('./img/icons/necklaces/16_agility_necklace.png');
+}
+
+.id_17 {
+  background-image: url('./img/icons/necklaces/17_vitality_necklace.png');
+}
+
+.id_18 {
+  background-image: url('./img/icons/necklaces/18_champions_necklace.png');
+}
+
+.id_19 {
+  background-image: url('./img/icons/rings/19_dodge_ring.png');
+}
+
+.id_20 {
+  background-image: url('./img/icons/rings/20_lesser_destruction_ring.png');
+}
+
+.id_21 {
+  background-image: url('./img/icons/rings/21_greater_destruction_ring.png');
+}
+
+.id_22 {
+  background-image: url('./img/icons/rings/22_protection_ring.png');
+}
+
+.id_23 {
+  background-image: url('./img/icons/rings/23_lesser_life_drain_ring.png');
+}
+
+.id_24 {
+  background-image: url('./img/icons/rings/24_greater_life_drain_ring.png');
+}
+
+.id_25 {
+  background-image: url('./img/icons/swords/25_dagger.png');
+}
+
+.id_26 {
+  background-image: url('./img/icons/swords/26_quality_dagger.png');
+}
+
+.id_27 {
+  background-image: url('./img/icons/swords/27_rusty_shortsword.png');
+}
+
+.id_28 {
+  background-image: url('./img/icons/swords/28_broadsword.png');
+}
+
+.id_29 {
+  background-image: url('./img/icons/swords/29_quality_sword.png');
+}
+
+.id_30 {
+  background-image: url('./img/icons/swords/30_widowmaker.png');
+}
+
+.id_31 {
+  background-image: url('./img/icons/swords/31_relic_blade.png');
+}
+
+.id_32 {
+  background-image: url('./img/icons/swords/32_peruns_anger.png');
+}
+
+.id_33 {
+  background-image: url('./img/icons/axes/33_battered_axe.png');
+}
+
+.id_34 {
+  background-image: url('./img/icons/axes/34_quality_axe.png');
+}
+
+.id_35 {
+  background-image: url('./img/icons/axes/35_double_axe.png');
+}
+
+.id_36 {
+  background-image: url('./img/icons/axes/36_veles_damnation.png');
+}
+
+.id_37 {
+  background-image: url('./img/icons/armor/37_leather_vest.png');
+}
+
+.id_38 {
+  background-image: url('./img/icons/armor/38_chainmail.png');
+}
+
+.id_39 {
+  background-image: url('./img/icons/armor/39_lamellar_armor.png');
+}
+
+.id_40 {
+  background-image: url('./img/icons/armor/40_breastplate.png');
+}
+
+.id_41 {
+  background-image: url('./img/icons/helmets/41_leather_hood.png');
+}
+
+.id_42 {
+  background-image: url('./img/icons/helmets/42_viking_helmet.png');
+}
+
+.id_43 {
+  background-image: url('./img/icons/helmets/43_quality_helmet.png');
+}
+
+.id_44 {
+  background-image: url('./img/icons/helmets/44_closed_helmet.png');
+}
+
+.id_45 {
+  background-image: url('./img/icons/gloves/45_leather_gloves.png');
+}
+
+.id_46 {
+  background-image: url('./img/icons/gloves/46_mailed_gloves.png');
+}
+
+.id_47 {
+  background-image: url('./img/icons/gloves/47_gauntlets.png');
+}
+
+.id_48 {
+  background-image: url('./img/icons/boots/48_leather_boots.png');
+}
+
+.id_49 {
+  background-image: url('./img/icons/boots/49_steeltoe_boots.png');
+}
+
+.id_50 {
+  background-image: url('./img/icons/boots/50_plated_boots.png');
+}
+
+.id_51 {
+  background-image: url('./img/icons/shields/51_small_round_shield.png');
+}
+
+.id_52 {
+  background-image: url('./img/icons/shields/52_viking_shield.png');
+}
+
+.id_53 {
+  background-image: url('./img/icons/shields/53_large_steel_shield.png');
+}
+
+.id_54 {
+  background-image: url('./img/icons/inn/54_coffee_cup.png');
+}
+
+.id_55 {
+  background-image: url('./img/icons/inn/55_beer_mug.png');
+}
+
+.id_56 {
+  background-image: url('./img/icons/inn/56_beer_barrel.png');
+}
+
+.id_57 {
+  background-image: url('./img/icons/inn/57_spirits_shot.png');
+}
+
+.id_58 {
+  background-image: url('./img/icons/inn/58_spirits_bottle.png');
+}
+
+.id_59 {
+  background-image: url('./img/icons/inn/59_wine_jug.png');
+}
+
+.id_60 {
+  background-image: url('./img/icons/inn/60_wine_amphora.png');
+}
+
+.id_61 {
+  background-image: url('./img/icons/inn/61_sofa.png');
+}
+
+.id_62 {
+  background-image: url('./img/icons/inn/62_bed.png');
+}
+
+.opponents-container {
+  height: 100%;
+  width: 75%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.opponent-slot {
+  height: 240px;
+  display: flex;
+  flex-flow: row;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.opponent-image {
+  height: 100%;
+  min-width: 400px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  position: absolute;
+  right: 0;
+}
+.opponent-image.bies,
+.opponent-image.wodnik,
+.opponent-image.striga,
+.opponent-image.nocnica {
+  min-width: 238px;
+  background-size: cover;
+}
+
+.opponent-info {
+  width: 330px;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  opacity: 0.8;
+  background-color: #fff;
+}
+
+.opponent-name {
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.info-header {
+  justify-content: space-around;
+  margin: 8px 0;
+  align-items: center;
+}
+
+.info-column {
+  margin-left: 5px;
+  align-items: space-around;
+}
+
+.fight-button {
+  align-items: center;
+}
+.fight-button div {
+  height: 30px;
+  width: 30px;
+  align-content: center;
+  background-image: url(./img/icons/attributes/crossed-swords.png);
+  background-size: contain;
+  margin-right: 5px;
+}
+
+.vertical-layout {
+  width: 600px;
+}
+.vertical-layout .console-container {
+  width: 50%;
+  height: 500px;
+}
+.vertical-layout .opponent-battle-screen {
+  width: 50%;
+  height: 100%;
+}
+.vertical-layout .opponent-battle-screen .opponent-battle-image {
+  width: 100%;
+  height: 60%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.vertical-layout .opponent-battle-screen .opponent-battle-image.vilkolak,
+.vertical-layout .opponent-battle-screen .opponent-battle-image.mamuna,
+.vertical-layout .opponent-battle-screen .opponent-battle-image.poludnica,
+.vertical-layout .opponent-battle-screen .opponent-battle-image.zmij {
+  background-size: cover;
+}
+.vertical-layout .opponent-battle-screen .opponent-battle-image.vilkolak {
+  background-position: -170px;
+}
+.vertical-layout .opponent-battle-screen .opponent-battle-image.zmij {
+  background-position: -60px;
+}
+.vertical-layout .opponent-battle-screen .panel-bar {
+  margin: 0 auto;
+  width: 200px;
+}
+
+.effect-box {
+  padding: 10px;
+}
+
+.battle-effect {
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+}
+
+.effect-Poison {
+  background-image: url(./img/icons/skull-crossed-bones.png);
+}
+
+.effect-Ice {
+  background-image: url(./img/icons/frozen-orb.png);
+}
+
+.effect-Fire {
+  background-image: url(./img/icons/burning-skull.png);
+}
+
+.rusalka {
+  background-image: url(./img/opponents/rusalka.jpg);
+}
+
+.wodnik {
+  background-image: url(./img/opponents/wodnik.jpg);
+}
+
+.mamuna {
+  background-image: url(./img/opponents/mamuna.jpg);
+}
+
+.nocnica {
+  background-image: url(./img/opponents/nocnica.jpg);
+}
+
+.poludnica {
+  background-image: url(./img/opponents/poludnica.jpg);
+}
+
+.lesnik {
+  background-image: url(./img/opponents/lesnik.jpg);
+}
+
+.bies {
+  background-image: url(./img/opponents/bies.png);
+}
+
+.striga {
+  background-image: url(./img/opponents/striga.jpg);
+}
+
+.vilkolak {
+  background-image: url(./img/opponents/vilkolak.png);
+}
+
+.zmij {
+  background-image: url(./img/opponents/zmij.jpg);
+}
+
+.attribute {
+  display: flex;
+  flex-flow: row;
+}
+.attribute p {
+  text-transform: capitalize;
+}
+
+.attr-pic {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  margin: 2px 5px;
+}
+.attr-pic.coin-bg {
+  border-radius: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.hero-right-panel .hero-pic {
+  width: 100%;
+  height: 185px;
+}
+
+.hero-battle-screen {
+  width: 230px;
+}
+.hero-battle-screen .hero-pic {
+  width: 192px;
+  height: 240px;
+}
+
+.hero-pic {
+  background-image: url('./img/hero.jpg');
+  background-size: contain;
+}
+
+.hero-arena {
+  width: 250px;
+  padding: 10px;
+}
+.hero-arena .header {
+  font-size: 20px;
+}
+.hero-arena .panel-bar {
+  width: 220px;
+}
+.hero-arena .hero-pic {
+  width: 220px;
+  height: 275px;
+}
+.hero-arena .effects-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-battle {
+  margin-bottom: 10px;
+  align-items: center;
+}
+.hero-battle .panel-bar {
+  width: 192px;
+}
+
+.hero-inn {
+  width: 280px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.hero-inn .hero-pic {
+  width: 240px;
+  height: 300px;
+}
+.hero-inn .panel-bar {
+  width: 240px;
+}
+
+.attr-pts {
+  text-align: center;
+  padding: 5px;
+  border-bottom: 1px solid;
+  margin-bottom: 15px;
+}
+
+.hero-attributes {
+  margin: 0 10px;
+}
+.hero-attributes .attribute {
+  justify-content: space-between;
+  align-items: center;
+}
+.hero-attributes p {
+  align-content: center;
+  padding: 0 5px;
+}
+
+.hero-right-panel {
+  margin: 0 10px;
+}
+
+.increment-button {
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 100%;
+  border: none;
+}
+.increment-button.enabled {
+  background-color: #afd9ae;
+}
+.increment-button.disabled {
+  background-color: #db3039;
+}
+
+.panel-bar {
+  position: relative;
+  width: 150px;
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid black;
+  opacity: 0.8;
+}
+
+.damage,
+.exp {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: -1;
+}
+
+.health-bar {
+  background-color: #afd9ae;
+}
+.health-bar .damage {
+  background-color: #db3039;
+  right: 0;
+}
+
+.exp-bar {
+  background-color: #ebe9e7;
+}
+.exp-bar .exp {
+  background-color: #edc534;
+  left: 0;
+}
+
+.player-name,
+.opponent-name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.hero-battle-screen,
+.opponent-battle-screen {
+  margin: 0 20px;
+}
+
+.btn-attack {
+  height: 55px;
+  align-items: center;
+}
+.btn-attack .btn-attack-img {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  margin-right: 5px;
+}
+.btn-attack .btn-attack-img.normal {
+  background-image: url('./img/icons/saber-slash.png');
+}
+.btn-attack .btn-attack-img.strong {
+  background-image: url('./img/icons/axe-swing.png');
+}
+
+.panel-hp {
+  background-image: url('./img/icons/attributes/hp.png');
+}
+
+.panel-strength {
+  background-image: url('./img/icons/attributes/strength.png');
+}
+
+.panel-defense {
+  background-image: url('./img/icons/attributes/defense.png');
+}
+
+.panel-agility {
+  background-image: url('./img/icons/attributes/agility.png');
+}
+
+.panel-vitality {
+  background-image: url('./img/icons/attributes/vitality.png');
+}
+
+.panel-damage {
+  background-image: url('./img/icons/attributes/damage.png');
+}
+
+.panel-hit-chance {
+  background-image: url('./img/icons/attributes/hit-chance.png');
+}
+
+.panel-armor {
+  background-image: url('./img/icons/attributes/armor.png');
+}
+
+.panel-block-chance {
+  background-image: url('./img/icons/attributes/block-chance.png');
+}
+
+.panel-undead {
+  background-image: url('./img/icons/attributes/undead.png');
+}
+
+.panel-living {
+  background-image: url('./img/icons/attributes/living.png');
+}
+
+.panel-life-drain {
+  background-image: url('./img/icons/attributes/life-drain.png');
+}
+
+.panel-xp {
+  background-image: url('./img/icons/attributes/xp.png');
+}
+
+.inventory-panel {
+  overflow-x: hidden;
+  width: 175px;
+}
+
+.equip-panel {
+  background-image: url('./img/backgrounds/hero_bg.png');
+  background-position: -50px;
+  width: 360px;
+  position: relative;
+}
+.equip-panel .item-description {
+  position: absolute;
+  top: 0px;
+  left: 165px;
+  height: 120px;
+  width: 190px;
+}
+
+.equipped-item {
+  width: 45px;
+  height: 45px;
+  background-color: #fff;
+  position: absolute;
+  border: 1px grey solid;
+  background-size: contain;
+}
+.equipped-item.empty-slot {
+  opacity: 0.4;
+}
+.equipped-item.used-slot {
+  opacity: 0.8;
+}
+
+.potion-bag {
+  position: absolute;
+  width: 95px;
+  height: 350px;
+  border: 1px black solid;
+  top: 130px;
+  left: 260px;
+}
+.potion-bag .bag-img {
+  background-size: 45px 45px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #000;
+  width: 93px;
+}
+.potion-bag .scroll-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  height: 300px;
+  margin-top: 3px;
+}
+.potion-bag .potion-container {
+  margin-bottom: 5px;
+  border: 1px solid black;
+}
+.potion-bag .potion {
+  width: 45px;
+  height: 45px;
+}
+.potion-bag .use-btn {
+  height: 100%;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+}
+.potion-bag .use-btn.enabled {
+  background-color: #afd9ae;
+}
+.potion-bag .use-btn.disabled {
+  background-color: #db3039;
+}
+
+.bag-img {
+  background-image: url('./img/icons/potion-bag.png');
+  background-size: contain;
+  height: 45px;
+  width: 45px;
+}
+
+.potion {
+  background-size: contain;
+}
+
+.potion-bar {
+  margin: 10px 0;
+  align-items: center;
+}
+.potion-bar .potion-container {
+  margin-right: 3px;
+}
+.potion-bar .potion {
+  width: 42px;
+  height: 42px;
+}
+.potion-bar .bag-img {
+  margin-right: 10px;
+}
+.potion-bar .use-btn {
+  padding: 0;
+}
+
+.equip-icon {
+  background-image: url('./img/icons/switch_weapon.png');
+  background-size: contain;
+}
+
+.weapons {
+  top: 40px;
+  left: 30px;
+}
+
+.helmets {
+  top: 50px;
+  left: 105px;
+}
+
+.necklaces {
+  top: 100px;
+  left: 105px;
+}
+
+.armors {
+  top: 190px;
+  left: 105px;
+}
+
+.boots {
+  top: 420px;
+  left: 105px;
+}
+
+.gloves {
+  top: 180px;
+  left: 30px;
+}
+
+.rings {
+  top: 230px;
+  left: 160px;
+}
+
+.shields {
+  top: 180px;
+  left: 200px;
+}
+
+* {
+  font-family: 'Ariel';
+  font-weight: 500;
+  color: #000;
+}
+
+a {
+  text-decoration: none;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.game-box {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-flow: row;
+}
+
+.panel {
+  width: 190px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.hero-battle,
+.flex-column,
+.defeat-screen,
+.victory-screen,
+.battle-summary {
+  display: flex;
+  flex-flow: column;
+}
+
+.vertical-layout,
+.flex-row {
+  display: flex;
+  flex-flow: row;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.coin-bg {
+  background-image: url('./img/icons/coin.png');
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.console {
+  overflow-y: auto;
+  height: 450px;
+}
+
+.center {
+  align-self: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-medium {
+  font-size: 20px;
+}
+
+.defeat-screen,
+.victory-screen {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.defeat-screen p,
+.victory-screen p {
+  font-size: 25px;
+  text-align: center;
+}
+.defeat-screen .panel-xp,
+.defeat-screen .gold-icon,
+.victory-screen .panel-xp,
+.victory-screen .gold-icon {
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  margin: 5px 10px;
+}
+.defeat-screen .gold-icon,
+.victory-screen .gold-icon {
+  background-image: url(./img/icons/coin.png);
+}
+
+.tombstone-icon,
+.laurel-icon,
+.log-icon {
+  width: 45px;
+  height: 45px;
+  background-size: contain;
+  margin-right: 10px;
+}
+
+.tombstone-icon {
+  background-image: url(./img/icons/tombstone.png);
+}
+
+.laurel-icon {
+  background-image: url(./img/icons/laurels.png);
+}
+
+.battle-summary {
+  justify-content: center;
+  align-items: center;
+}
+
+.player-log {
+  color: #13a610;
+}
+
+.opponent-log {
+  color: #b0270b;
+}
+
+.console p {
+  padding: 2px 5px;
+}
+
+.log-icon {
+  background-image: url(./img/icons/scroll-unfurled.png);
+  margin-right: 10px;
+}
+
+.battle-log-header {
+  justify-content: center;
+  margin-bottom: 5px;
+}
