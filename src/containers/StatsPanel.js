@@ -42,21 +42,11 @@ class StatsPanel extends React.Component {
                 <br />
                 {`${attributes[key]}`}
               </p>
-              <button
-                className={`${
-                  attributePoints > 0 ? 'enabled' : 'disabled'
-                } increment-button`}
-                onClick={
-                  attributePoints > 0 ? () => this.handleClick(key) : () => ''
-                }
-              >
-                +
-              </button>
             </div>
           ))}
 
           <div className="attr-pts">
-            <p>Attribute Points: {attributePoints}</p>
+            <p>Stats</p>
           </div>
 
           <div className="flex-row">
@@ -121,7 +111,6 @@ class StatsPanel extends React.Component {
 
 const mapStateToProps = state => ({
   attributes: state.playerstats.attributes,
-  attributePoints: state.playerstats.attributePoints,
   damage: state.playerstats.damage,
   armor: state.playerstats.armor,
   hitChance: state.playerstats.hitChance,

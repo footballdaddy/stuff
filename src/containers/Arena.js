@@ -7,17 +7,21 @@ import Console from './Console';
 import OpponentScreen from './OpponentScreen';
 
 // Actions
-import { chooseOpponent } from '../redux/modules/actions';
+import {
+  chooseOpponent,
+  calculateAttributeBonus,
+  updateEquipped,
+} from '../redux/modules/actions';
 
 class Arena extends React.Component {
   componentDidMount = () => {
     const { equipped } = this.props;
-    // const battleGear = equipped.filter(
-    //   item => item.category !== 'potions' && item.category !== 'oils',
-    // );
+    const battleGear = equipped.filter(
+      item => item.category !== 'potions' && item.category !== 'oils',
+    );
     // console.log(battleGear);
-    // this.props.updateEquipped(battleGear);
-    // this.props.calculateAttributeBonus();
+    this.props.updateEquipped(battleGear);
+    this.props.calculateAttributeBonus();
     this.props.chooseOpponent('opponentList');
   };
 
@@ -44,8 +48,11 @@ class Arena extends React.Component {
 const mapStateToProps = state => ({
   opponent: state.handleOpponent.opponent,
   logs: state.logs.logs,
+  equipped: state.equip.equipped,
 });
 
 export default connect(mapStateToProps, {
   chooseOpponent,
+  calculateAttributeBonus,
+  updateEquipped,
 })(Arena);

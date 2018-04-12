@@ -10,7 +10,7 @@ import {
   endBattle,
   hpRegen,
 } from '../redux/modules/actions';
-
+import AttackButtons from './AttackButtons';
 class HeroBattleScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +37,7 @@ class HeroBattleScreen extends React.Component {
 
   autorun = () => {
     if (this.props.currentHP <= this.props.maxHP) {
-      this.props.hpRegen(0.1);
+      this.props.hpRegen(1);
     }
     if (this.props.opponent != 'none') {
       this.attack();
@@ -146,6 +146,14 @@ class HeroBattleScreen extends React.Component {
     } = this.props;
     let { hitChance, damage } = this.props;
 
+    // if (player.effects.length > 0) {
+    //   player.effects.map(effect => {
+    //     dealDamage(effect.dmgPerTurn);
+    //     this.checkHP(player.currentHP, effect.dmgPerTurn, 'success');
+    //     effectCooldown(effect);
+    //   });
+    // }
+
     let minDamage = damage[0];
     let maxDamage = damage[1];
 
@@ -249,25 +257,7 @@ class HeroBattleScreen extends React.Component {
     return (
       <div className="hero-battle-screen">
         <div className="flex-row space-around">
-          <button className="flex-row btn-attack" onClick={() => this.attack()}>
-            <div className="btn-attack-img normal" />
-            <p>Attack</p>
-          </button>
-          <button
-            className="flex-row btn-attack"
-            onClick={() => this.attack(true)}
-          >
-            <div className="btn-attack-img strong" />
-            <p>
-              Strong attack<br />+50% damage<br />-30% hit chance
-            </p>
-          </button>
-          <button onClick={() => this.start()}>
-            <p>Start</p>
-          </button>
-          <button onClick={() => this.stop()}>
-            <p>Stop</p>
-          </button>
+          <AttackButtons />
         </div>
       </div>
     );

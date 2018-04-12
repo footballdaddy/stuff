@@ -97,25 +97,21 @@ export default (state = initialState, action) => {
             armor: state.armor - action.item.armor,
             baseHitChance: state.baseHitChance + action.item.hitChancePenalty,
           };
-
         case 'weapons':
           return {
             ...state,
             baseDamage: [2, 4],
             baseHitChance: state.baseHitChance - action.item.hitChance + 0.5,
           };
-
         case 'shields':
           return {
             ...state,
             baseBlockChance:
               state.baseBlockChance - action.item.blockChanceBonus,
           };
-
         case 'rings':
         case 'necklaces':
           const skill = Object.keys(action.item.skillIncrease)[0];
-
           if (skill === 'all') {
             return {
               ...state,
@@ -131,8 +127,7 @@ export default (state = initialState, action) => {
               },
             };
           }
-
-          Object.keys(state.attributes).includes(skill)
+          return Object.keys(state.attributes).includes(skill)
             ? {
                 ...state,
                 attributes: {
@@ -145,11 +140,10 @@ export default (state = initialState, action) => {
                 ...state,
                 [skill]: state[skill] - action.item.skillIncrease[skill],
               };
-
         default:
           return state;
       }
-
+    // remove
     case 'INCREMENT_ATTRIBUTE':
       return {
         ...state,
@@ -190,6 +184,7 @@ export default (state = initialState, action) => {
           boostedAttributes: [...state.boostedAttributes, increasedStat],
         };
       }
+      return state;
     case 'END_BATTLE_VICTORY':
     case 'END_BATTLE_DEFEAT':
       return {

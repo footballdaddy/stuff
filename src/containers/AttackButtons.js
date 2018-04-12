@@ -1,0 +1,112 @@
+import React from 'react';
+import { connect } from 'react-redux';
+
+import {
+  unequipItem,
+  calculateAttributeBonus,
+  addEffect,
+  restoreHP,
+  showDescription,
+} from '../redux/modules/actions';
+import { startSkill } from '../redux/modules/skills';
+const el = {
+  id: 6,
+  category: 'potions',
+  name: 'Potion of strength',
+  buyValue: 200,
+  sellValue: 100,
+  effect: {
+    statIncrease: 'strength',
+  },
+  useLocation: 'exploration',
+  description: 'Increases strength by 10 during next battle.',
+};
+
+class AttackButtons extends React.Component {
+  useItem = (el, key) => {
+    console.log(Object.keys(this.props.skills));
+    if (typeof el.restore !== 'undefined') {
+      this.props.restoreHP(el);
+    }
+
+    if (typeof el.effect !== 'undefined') {
+      // console.log('hi');
+      this.props.addEffect(el, key);
+    }
+    this.props.calculateAttributeBonus();
+  };
+
+  calculateToCoolDown = skill => {
+    if (this.props.skills[skill].currentCoolDown >= 0) {
+      return (
+        <button className="use-btn" onClick={() => this.useItem(el, skill)}>
+          {this.props.skills[skill]}
+        </button>
+      );
+    } else {
+      return (
+        <button className="use-btn">
+          {this.props.skills[skill]} {this.props.skills[skill].currentCoolDown}
+        </button>
+      );
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        {Object.keys(this.props.skills).map((skill, i) => (
+          <div key={i}>
+            <div>
+              Skill: {this.props.skills[skill].name}
+              Current Time left: {this.props.skills[skill].currentCoolDown}
+              ActiveCoolDown Time left:{' '}
+              {this.props.skills[skill].activeCoolDown}
+              Base Cooldown: {this.props.skills[skill].baseCoolDown}
+              {this.props.skills[skill].currentCoolDown <= 0 ? (
+                <button
+                  className="use-btn"
+                  onClick={() => this.useItem(el, skill)}
+                >
+                  {this.props.skills[skill].name}
+                </button>
+              ) : (
+                <button className="use-btn">
+                  {this.props.skills[skill].name}
+                  {this.props.skills[skill].currentCoolDown}
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+        <button className="flex-row btn-attack" onClick={() => this.attack()}>
+          <div className="btn-attack-img normal" />
+          <p>Attack</p>
+        </button>
+        <button
+          className="flex-row btn-attack"
+          onClick={() => this.useItem(el, 'punch')}
+        >
+          <div className="btn-attack-img strong" />
+          <p>Strength +10</p>
+        </button>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  equipped: state.equip.equipped,
+  temporaryEffects: state.tempeffects.temporaryEffects,
+  hoveredItem: state.description.hoveredItem,
+  skills: state.skills,
+});
+
+export default connect(mapStateToProps, {
+  unequipItem,
+  addEffect,
+  calculateAttributeBonus,
+  restoreHP,
+  showDescription,
+  startSkill,
+})(AttackButtons);

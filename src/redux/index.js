@@ -12,6 +12,7 @@ import equip from './modules/equip';
 import description from './modules/description';
 import playerstats from './modules/playerstats';
 import handleOpponent from './modules/handleOpponent';
+import skills from './modules/skills';
 export default combineReducers({
   stats,
   game,
@@ -26,4 +27,5 @@ export default combineReducers({
   description,
   playerstats,
   handleOpponent,
+  skills,
 });

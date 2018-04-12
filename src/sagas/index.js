@@ -1,6 +1,11 @@
 import { delay } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
-import { getStatData, getGameData, getEnemyData } from '../selectors';
+import {
+  getStatData,
+  getGameData,
+  getEnemyData,
+  getSkillData,
+} from '../selectors';
 import {
   incrementValue,
   calculateAttack,
@@ -14,6 +19,7 @@ import {
 } from '../redux/modules/stats';
 
 import { victory, defeat } from '../redux/modules/game';
+import { decrementCoolDown } from '../redux/modules/skills';
 import {
   nextEnemy,
   playerAttacks,
@@ -30,6 +36,8 @@ export default function* gameLoop() {
   let statData = yield select(getStatData);
   let gameData = yield select(getGameData);
   let enemyData = yield select(getEnemyData);
+  let skillData = yield select(getSkillData);
+
   // let valuePerSecond = yield select(getValuePerSecond);
   // let lootSpeed = yield select(getLootSpeed);
   // let loot = yield select(getLoot);
@@ -48,6 +56,7 @@ export default function* gameLoop() {
       statData = yield select(getStatData);
       gameData = yield select(getGameData);
       enemyData = yield select(getEnemyData);
+      skillData = yield select(getSkillData);
       currentTime = Date.now();
       deltaTime = currentTime - lastUpdateTime;
       lastUpdateTime = currentTime;
@@ -106,7 +115,13 @@ export default function* gameLoop() {
       yield put(
         calculateEnemyHealth(enemyData.stats.defense / 20 * calcWSecFrame),
       );
-
+      for (let key in skillData) {
+        if (skillData[key].currentCoolDown > 0) {
+          yield put(
+            decrementCoolDown(key, skillData[key].rate * deltaTime / 1000),
+          );
+        }
+      }
       yield delay(1000 / frameRate);
     }
   }

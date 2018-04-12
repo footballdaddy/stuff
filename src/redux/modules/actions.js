@@ -51,9 +51,10 @@ export const innBuy = item => ({
   item,
 });
 
-export const addEffect = item => ({
+export const addEffect = (item, key) => ({
   type: 'ADD_EFFECT',
   item,
+  key,
 });
 
 export const logMessage = message => ({
