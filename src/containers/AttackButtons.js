@@ -23,34 +23,34 @@ const el = {
 };
 
 class AttackButtons extends React.Component {
-  useItem = (el, key) => {
-    console.log(Object.keys(this.props.skills));
-    if (typeof el.restore !== 'undefined') {
-      this.props.restoreHP(el);
-    }
+  useItem = (elx, key) => {
+    // console.log(Object.keys(this.props.skills));
+    // if (typeof el.restore !== 'undefined') {
+    //   this.props.restoreHP(el);
+    // }
 
-    if (typeof el.effect !== 'undefined') {
-      // console.log('hi');
-      this.props.addEffect(el, key);
-    }
+    // if (typeof el.effect !== 'undefined') {
+    // console.log('hi');
+    this.props.addEffect(elx, key);
+    // }
     this.props.calculateAttributeBonus();
   };
 
-  calculateToCoolDown = skill => {
-    if (this.props.skills[skill].currentCoolDown >= 0) {
-      return (
-        <button className="use-btn" onClick={() => this.useItem(el, skill)}>
-          {this.props.skills[skill]}
-        </button>
-      );
-    } else {
-      return (
-        <button className="use-btn">
-          {this.props.skills[skill]} {this.props.skills[skill].currentCoolDown}
-        </button>
-      );
-    }
-  };
+  // calculateToCoolDown = skill => {
+  //   if (this.props.skills[skill].currentCoolDown >= 0) {
+  //     return (
+  //       <button className="use-btn" onClick={() => this.useItem(el, skill)}>
+  //         {this.props.skills[skill]}
+  //       </button>
+  //     );
+  //   } else {
+  //     return (
+  //       <button className="use-btn">
+  //         {this.props.skills[skill]} {this.props.skills[skill].currentCoolDown}
+  //       </button>
+  //     );
+  //   }
+  // };
 
   render() {
     return (
@@ -66,7 +66,7 @@ class AttackButtons extends React.Component {
               {this.props.skills[skill].currentCoolDown <= 0 ? (
                 <button
                   className="use-btn"
-                  onClick={() => this.useItem(el, skill)}
+                  onClick={() => this.useItem(this.props.skills[skill], skill)}
                 >
                   {this.props.skills[skill].name}
                 </button>

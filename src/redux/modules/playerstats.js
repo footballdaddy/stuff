@@ -179,14 +179,30 @@ export default (state = initialState, action) => {
           ...state,
           attributes: {
             ...state.attributes,
-            [increasedStat]: state.attributes[increasedStat] + 10,
+            [increasedStat]:
+              state.attributes[increasedStat] + action.item.value,
           },
           boostedAttributes: [...state.boostedAttributes, increasedStat],
         };
       }
       return state;
+    // case 'ADD_EFFECT_PLAYER':
+    //   const increasedStat = action.item.effect.statIncrease;
+    //   if (Object.keys(state.attributes).includes(increasedStat)) {
+    //     return {
+    //       ...state,
+    //       attributes: {
+    //         ...state.attributes,
+    //         [increasedStat]: state.attributes[increasedStat] + 10,
+    //       },
+    //       boostedAttributes: [...state.boostedAttributes, increasedStat],
+    //     };
+    //   }
+    //   return state;
+
     case 'END_BATTLE_VICTORY':
     case 'END_BATTLE_DEFEAT':
+    case 'REMOVE_SKILL_EFFECTS':
       return {
         ...state,
         attributes: {
