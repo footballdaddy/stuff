@@ -6,9 +6,9 @@ const initialState = {
     baseCoolDown: 10,
     activeCoolDown: 0,
     baseActiveCoolDown: 5,
-    value: 5,
     effect: {
       statIncrease: 'strength',
+      value: 5,
     },
   },
   kick: {
@@ -18,18 +18,18 @@ const initialState = {
     baseCoolDown: 45,
     activeCoolDown: 0,
     baseActiveCoolDown: 3,
-    value: 5,
     effect: {
       statIncrease: 'strength',
+      value: 5,
     },
   },
 };
 
-export const calculateActiveCoolDown = (skill, value) => {
+export const calculateActiveCoolDown = skill => {
   return (dispatch, getState) => {
     const state = getState();
 
-    if (state.skills[skill].activeCoolDown < 0) {
+    if (state.skills[skill].activeCoolDown > 0) {
       dispatch({ type: 'DECREMENT_ACTIVE_COOLDOWN', key: skill });
     } else {
       dispatch({ type: 'REMOVE_SKILL_EFFECTS', key: skill });
@@ -52,9 +52,9 @@ export const startSkill = key => ({
   key,
 });
 
-export const removeSkillEffects = key => ({
+export const removeSkillEffects = skill => ({
   type: 'REMOVE_SKILL_EFFECTS',
-  key,
+  skill,
 });
 
 export const calculateChangeTime = changeTime => ({

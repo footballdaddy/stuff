@@ -8,7 +8,7 @@ import {
   restoreHP,
   showDescription,
 } from '../redux/modules/actions';
-import { startSkill } from '../redux/modules/skills';
+import { startSkill, removeSkillEffects } from '../redux/modules/skills';
 const el = {
   id: 6,
   category: 'potions',
@@ -108,5 +108,6 @@ export default connect(mapStateToProps, {
   calculateAttributeBonus,
   restoreHP,
   showDescription,
+  removeSkillEffects,
   startSkill,
 })(AttackButtons);

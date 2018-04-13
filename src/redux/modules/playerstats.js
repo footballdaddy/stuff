@@ -5,9 +5,9 @@ const initialState = {
     strength: 10,
     defense: 10,
     agility: 10,
-    vitality: 10,
+    vitality: 1000,
   },
-  boostedAttributes: [],
+  boostedAttributes: { strength: 0 },
   attributePoints: 20,
   armor: 0,
   baseBlockChance: 0.05,
@@ -180,11 +180,15 @@ export default (state = initialState, action) => {
           attributes: {
             ...state.attributes,
             [increasedStat]:
-              state.attributes[increasedStat] + action.item.value,
+              state.attributes[increasedStat] + action.item.effect.value,
           },
-          boostedAttributes: [...state.boostedAttributes, increasedStat],
+          boostedAttributes: {
+            ...state.boostedAttributes,
+            [increasedStat]: action.item.effect.value,
+          },
         };
       }
+
       return state;
     // case 'ADD_EFFECT_PLAYER':
     //   const increasedStat = action.item.effect.statIncrease;
@@ -206,21 +210,38 @@ export default (state = initialState, action) => {
       return {
         ...state,
         attributes: {
-          strength: state.boostedAttributes.includes('strength')
-            ? state.attributes.strength - 10
-            : state.attributes.strength,
-          defense: state.boostedAttributes.includes('defense')
-            ? state.attributes.defense - 10
-            : state.attributes.defense,
-          agility: state.boostedAttributes.includes('agility')
-            ? state.attributes.agility - 10
-            : state.attributes.agility,
-          vitality: state.boostedAttributes.includes('vitality')
-            ? state.attributes.vitality - 10
-            : state.attributes.vitality,
+          ...state.attributes,
+          [action.key]:
+            state.attributes[action.key] - state.boostedAttributes[action.key],
         },
-        boostedAttributes: [],
+        boostedAttributes: {
+          ...state.boostedAttributes,
+          [action.key]: 0,
+        },
       };
+
+    // const effectIndex = state.boostedAttributes
+    // .map(skill => skill.statIncrease)
+    // .indexOf(action.key.name);
+
+    //   return {
+    //     ...state,
+    //     attributes: {
+    //       strength: state.boostedAttributes.includes('strength')
+    //         ? state.attributes.strength - 10
+    //         : state.attributes.strength,
+    //       defense: state.boostedAttributes.includes('defense')
+    //         ? state.attributes.defense - 10
+    //         : state.attributes.defense,
+    //       agility: state.boostedAttributes.includes('agility')
+    //         ? state.attributes.agility - 10
+    //         : state.attributes.agility,
+    //       vitality: state.boostedAttributes.includes('vitality')
+    //         ? state.attributes.vitality - 10
+    //         : state.attributes.vitality,
+    //     },
+    //     boostedAttributes: [],
+    //   };
 
     case 'END_GAME':
       return state;

@@ -24,7 +24,7 @@ class EffectList extends React.Component {
             {increasedStats.length > 0 &&
               increasedStats.map((attr, i) => (
                 <p className="capitalize" key={i}>
-                  {attr.statIncrease} +10
+                  {attr.statIncrease} {attr.value}
                 </p>
               ))}
           </div>

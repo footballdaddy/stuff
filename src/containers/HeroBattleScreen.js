@@ -11,7 +11,10 @@ import {
   hpRegen,
 } from '../redux/modules/actions';
 
-import { decrementActiveCoolDown } from '../redux/modules/skills';
+import {
+  decrementActiveCoolDown,
+  calculateActiveCoolDown,
+} from '../redux/modules/skills';
 import AttackButtons from './AttackButtons';
 class HeroBattleScreen extends React.Component {
   constructor(props) {
@@ -148,14 +151,19 @@ class HeroBattleScreen extends React.Component {
       endBattle,
     } = this.props;
     let { hitChance, damage } = this.props;
-
-    if (boostedAttributes.length > 0) {
-      boostedAttributes.map(effect => {
-        // console.log(effect);
-
-        this.props.decrementActiveCoolDown(effect);
-      });
+    for (let key in boostedAttributes) {
+      if (boostedAttributes[key] > 0) {
+        this.props.calculateActiveCoolDown(key);
+      }
     }
+
+    // if (boostedAttributes.length > 0) {
+    //   boostedAttributes.map(effect => {
+    //     console.log(effect);
+
+    //     this.props.decrementActiveCoolDown(effect);
+    //   });
+    // }
 
     let minDamage = damage[0];
     let maxDamage = damage[1];
@@ -289,5 +297,6 @@ export default connect(mapStateToProps, {
   effectCooldown,
   endBattle,
   decrementActiveCoolDown,
+  calculateActiveCoolDown,
   hpRegen,
 })(HeroBattleScreen);
