@@ -9,6 +9,7 @@ import {
   effectCooldown,
   endBattle,
   hpRegen,
+  calculateAttributeBonus,
 } from '../redux/modules/actions';
 
 import {
@@ -42,7 +43,7 @@ class HeroBattleScreen extends React.Component {
 
   autorun = () => {
     if (this.props.currentHP <= this.props.maxHP) {
-      this.props.hpRegen(1);
+      this.props.hpRegen(0.01);
     }
     if (this.props.opponent != 'none') {
       this.attack();
@@ -148,11 +149,14 @@ class HeroBattleScreen extends React.Component {
       addOpponentEffect,
       drainLife,
       boostedAttributes,
+      calculateAttributeBonus,
       endBattle,
+      skills,
     } = this.props;
     let { hitChance, damage } = this.props;
-    for (let key in boostedAttributes) {
-      if (boostedAttributes[key] > 0) {
+    for (let key in skills) {
+      if (skills[key].activeCoolDown > 0) {
+        console.log(key);
         this.props.calculateActiveCoolDown(key);
       }
     }
@@ -287,6 +291,7 @@ const mapStateToProps = state => ({
   hitChance: state.playerstats.hitChance,
   damage: state.playerstats.damage,
   lifeDrain: state.playerstats.lifeDrain,
+  skills: state.skills,
 });
 
 export default connect(mapStateToProps, {
@@ -299,4 +304,5 @@ export default connect(mapStateToProps, {
   decrementActiveCoolDown,
   calculateActiveCoolDown,
   hpRegen,
+  calculateAttributeBonus,
 })(HeroBattleScreen);

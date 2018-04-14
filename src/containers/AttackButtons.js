@@ -24,15 +24,14 @@ const el = {
 
 class AttackButtons extends React.Component {
   useItem = (elx, key) => {
-    // console.log(Object.keys(this.props.skills));
-    // if (typeof el.restore !== 'undefined') {
-    //   this.props.restoreHP(el);
-    // }
+    if (typeof elx.restore !== 'undefined') {
+      this.props.restoreHP(elx);
+    }
 
-    // if (typeof el.effect !== 'undefined') {
-    // console.log('hi');
-    this.props.addEffect(elx, key);
-    // }
+    if (typeof elx.effect !== 'undefined') {
+      console.log('hi');
+      this.props.addEffect(elx, key);
+    }
     this.props.calculateAttributeBonus();
   };
 
@@ -63,7 +62,8 @@ class AttackButtons extends React.Component {
               ActiveCoolDown Time left:{' '}
               {this.props.skills[skill].activeCoolDown}
               Base Cooldown: {this.props.skills[skill].baseCoolDown}
-              {this.props.skills[skill].currentCoolDown <= 0 ? (
+              {this.props.skills[skill].currentCoolDown <= 0 &&
+              this.props.opponnent != 'none' ? (
                 <button
                   className="use-btn"
                   onClick={() => this.useItem(this.props.skills[skill], skill)}
@@ -100,6 +100,7 @@ const mapStateToProps = state => ({
   temporaryEffects: state.tempeffects.temporaryEffects,
   hoveredItem: state.description.hoveredItem,
   skills: state.skills,
+  opponnent: state.handleOpponent.opponnent,
 });
 
 export default connect(mapStateToProps, {

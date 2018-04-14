@@ -3,12 +3,12 @@ const initialState = {
     name: 'strength',
     rate: 1,
     currentCoolDown: 0,
-    baseCoolDown: 10,
+    baseCoolDown: 4,
     activeCoolDown: 0,
-    baseActiveCoolDown: 5,
+    baseActiveCoolDown: 2,
     effect: {
       statIncrease: 'strength',
-      value: 5,
+      value: 500,
     },
   },
   kick: {
@@ -19,9 +19,18 @@ const initialState = {
     activeCoolDown: 0,
     baseActiveCoolDown: 3,
     effect: {
-      statIncrease: 'strength',
+      statIncrease: 'vitality',
       value: 5,
     },
+  },
+  heal: {
+    name: 'heal',
+    rate: 1,
+    currentCoolDown: 0,
+    baseCoolDown: 45,
+    activeCoolDown: 0,
+    baseActiveCoolDown: 3,
+    restore: 50,
   },
 };
 
@@ -33,6 +42,7 @@ export const calculateActiveCoolDown = skill => {
       dispatch({ type: 'DECREMENT_ACTIVE_COOLDOWN', key: skill });
     } else {
       dispatch({ type: 'REMOVE_SKILL_EFFECTS', key: skill });
+      dispatch({ type: 'CALCULATE_ATTRIBUTE_BONUS' });
     }
   };
 };

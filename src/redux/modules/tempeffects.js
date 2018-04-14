@@ -9,12 +9,18 @@ export default (state = initialState, action) => {
         ...state,
         temporaryEffects: [...state.temporaryEffects, action.item.effect],
       };
-    case 'END_BATTLE_VICTORY':
-    case 'END_BATTLE_DEFEAT':
+    case 'REMOVE_SKILL_EFFECTS':
+      console.log('Hi');
+      const arraybox = state.temporaryEffects.filter(
+        skill => skill.statIncrease != action.key,
+      );
       return {
         ...state,
-        temporaryEffects: [],
+        temporaryEffects: arraybox,
       };
+    case 'END_BATTLE_VICTORY':
+    case 'END_BATTLE_DEFEAT':
+      return state;
 
     default:
       return state;

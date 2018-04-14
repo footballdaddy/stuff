@@ -206,6 +206,7 @@ export default (state = initialState, action) => {
 
     case 'END_BATTLE_VICTORY':
     case 'END_BATTLE_DEFEAT':
+      return state;
     case 'REMOVE_SKILL_EFFECTS':
       return {
         ...state,
