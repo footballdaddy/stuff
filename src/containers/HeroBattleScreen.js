@@ -153,12 +153,13 @@ class HeroBattleScreen extends React.Component {
       endBattle,
       skills,
     } = this.props;
+    //  to fix
     let { hitChance, damage } = this.props;
     for (let key in skills) {
-      if (skills[key].activeCoolDown > 0) {
-        console.log(key);
-        this.props.calculateActiveCoolDown(key);
-      }
+      // if (skills[key].activeCoolDown > 0) {
+      // console.log(key);
+      this.props.calculateActiveCoolDown(key);
+      // }
     }
 
     // if (boostedAttributes.length > 0) {

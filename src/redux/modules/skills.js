@@ -10,6 +10,7 @@ const initialState = {
       statIncrease: 'strength',
       value: 500,
     },
+    isActive: 'false',
   },
   kick: {
     name: 'kick',
@@ -22,6 +23,7 @@ const initialState = {
       statIncrease: 'vitality',
       value: 5,
     },
+    isActive: 'false',
   },
   heal: {
     name: 'heal',
@@ -31,17 +33,19 @@ const initialState = {
     activeCoolDown: 0,
     baseActiveCoolDown: 3,
     restore: 50,
+    isActive: 'false',
   },
 };
-
-export const calculateActiveCoolDown = skill => {
+// to fix
+export const calculateActiveCoolDown = key => {
   return (dispatch, getState) => {
     const state = getState();
 
-    if (state.skills[skill].activeCoolDown > 0) {
-      dispatch({ type: 'DECREMENT_ACTIVE_COOLDOWN', key: skill });
+    if (state.skills[key].activeCoolDown > 0) {
+      // console.log('billy');
+      dispatch({ type: 'DECREMENT_ACTIVE_COOLDOWN', key });
     } else {
-      dispatch({ type: 'REMOVE_SKILL_EFFECTS', key: skill });
+      dispatch({ type: 'REMOVE_SKILL_EFFECTS', key });
       dispatch({ type: 'CALCULATE_ATTRIBUTE_BONUS' });
     }
   };

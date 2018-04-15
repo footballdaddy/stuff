@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
         temporaryEffects: [...state.temporaryEffects, action.item.effect],
       };
     case 'REMOVE_SKILL_EFFECTS':
-      console.log('Hi');
+      console.log('Billy');
       const arraybox = state.temporaryEffects.filter(
         skill => skill.statIncrease != action.key,
       );

@@ -29,7 +29,7 @@ class AttackButtons extends React.Component {
     }
 
     if (typeof elx.effect !== 'undefined') {
-      console.log('hi');
+      // console.log('hi');
       this.props.addEffect(elx, key);
     }
     this.props.calculateAttributeBonus();
