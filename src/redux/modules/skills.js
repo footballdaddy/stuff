@@ -5,7 +5,7 @@ const initialState = {
     currentCoolDown: 0,
     baseCoolDown: 4,
     activeCoolDown: 0,
-    baseActiveCoolDown: 20,
+    baseActiveCoolDown: 2,
     effect: {
       statIncrease: 'strength',
       value: 500,
@@ -34,7 +34,7 @@ const initialState = {
     baseActiveCoolDown: 3,
     effect: {
       statIncrease: 'defense',
-      value: 5,
+      value: 500,
     },
     isActive: 'false',
   },
