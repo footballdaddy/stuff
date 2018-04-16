@@ -5,22 +5,35 @@ const initialState = {
     currentCoolDown: 0,
     baseCoolDown: 4,
     activeCoolDown: 0,
-    baseActiveCoolDown: 2,
+    baseActiveCoolDown: 20,
     effect: {
       statIncrease: 'strength',
       value: 500,
     },
     isActive: 'false',
   },
-  kick: {
-    name: 'kick',
+  agility: {
+    name: 'agility',
     rate: 1,
     currentCoolDown: 0,
-    baseCoolDown: 45,
+    baseCoolDown: 8,
     activeCoolDown: 0,
     baseActiveCoolDown: 3,
     effect: {
-      statIncrease: 'vitality',
+      statIncrease: 'agility',
+      value: 5,
+    },
+    isActive: 'false',
+  },
+  defense: {
+    name: 'defense',
+    rate: 1,
+    currentCoolDown: 0,
+    baseCoolDown: 6,
+    activeCoolDown: 0,
+    baseActiveCoolDown: 3,
+    effect: {
+      statIncrease: 'defense',
       value: 5,
     },
     isActive: 'false',
@@ -31,7 +44,7 @@ const initialState = {
     currentCoolDown: 0,
     baseCoolDown: 45,
     activeCoolDown: 0,
-    baseActiveCoolDown: 3,
+    baseActiveCoolDown: 0,
     restore: 50,
     isActive: 'false',
   },
@@ -65,10 +78,14 @@ export const startSkill = key => ({
   type: 'START_SKILL',
   key,
 });
+export const stopSkill = key => ({
+  type: 'STOP_SKILL',
+  key,
+});
 
-export const removeSkillEffects = skill => ({
+export const removeSkillEffects = key => ({
   type: 'REMOVE_SKILL_EFFECTS',
-  skill,
+  key,
 });
 
 export const calculateChangeTime = changeTime => ({
@@ -78,7 +95,7 @@ export const calculateChangeTime = changeTime => ({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_EFFECT':
+    case 'START_SKILL':
       if (state[action.key].currentCoolDown <= 0) {
         return {
           ...state,
@@ -86,6 +103,7 @@ export default (state = initialState, action) => {
             ...state[action.key],
             currentCoolDown: state[action.key].baseCoolDown,
             activeCoolDown: state[action.key].baseActiveCoolDown,
+            isActive: 'true',
           },
         };
       } else {
@@ -117,14 +135,22 @@ export default (state = initialState, action) => {
         return state;
       }
 
-    case 'START_SKILL':
+    case 'STOP_SKILL':
       return {
         ...state,
         [action.key]: {
           ...state[action.key],
-          currentCooldown: state[action.key].baseCoolDown,
+          isActive: '',
         },
       };
+    // case 'START_SKILL':
+    //   return {
+    //     ...state,
+    //     [action.key]: {
+    //       ...state[action.key],
+    //       isActive: 'true',
+    //     },
+    //   };
     default:
       return state;
   }

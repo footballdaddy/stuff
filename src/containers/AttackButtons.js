@@ -24,6 +24,7 @@ const el = {
 
 class AttackButtons extends React.Component {
   useItem = (elx, key) => {
+    this.props.startSkill(key);
     if (typeof elx.restore !== 'undefined') {
       this.props.restoreHP(elx);
     }

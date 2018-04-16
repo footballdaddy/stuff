@@ -389,3 +389,25 @@ export default connect(mapStateToProps, {
   decrementActiveCoolDown,
   hpRegen,
 })(HeroBattleScreen);
+
+
+for (let key in skills) {
+  if (skills[key].activeCoolDown > 0) {
+    console.log(key);
+    this.props.calculateActiveCoolDown(key);
+  }
+}
+
+export const calculateActiveCoolDown = key => {
+  return (dispatch, getState) => {
+    const state = getState();
+
+    if (state.skills[key].activeCoolDown > 0) {
+      console.log('billy');
+      dispatch({ type: 'DECREMENT_ACTIVE_COOLDOWN', key });
+    } else {
+      dispatch({ type: 'REMOVE_SKILL_EFFECTS', key });
+      dispatch({ type: 'CALCULATE_ATTRIBUTE_BONUS' });
+    }
+  };
+};

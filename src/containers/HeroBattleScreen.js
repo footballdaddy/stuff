@@ -14,7 +14,9 @@ import {
 
 import {
   decrementActiveCoolDown,
+  removeSkillEffects,
   calculateActiveCoolDown,
+  stopSkill,
 } from '../redux/modules/skills';
 import AttackButtons from './AttackButtons';
 class HeroBattleScreen extends React.Component {
@@ -156,10 +158,16 @@ class HeroBattleScreen extends React.Component {
     //  to fix
     let { hitChance, damage } = this.props;
     for (let key in skills) {
-      // if (skills[key].activeCoolDown > 0) {
-      // console.log(key);
-      this.props.calculateActiveCoolDown(key);
-      // }
+      if (skills[key].activeCoolDown == 0 && skills[key].isActive === 'true') {
+        console.log(key);
+        this.props.stopSkill(key);
+        this.props.removeSkillEffects(key);
+        this.props.calculateAttributeBonus();
+      }
+      if (skills[key].activeCoolDown > 0) {
+        this.props.decrementActiveCoolDown(key);
+        console.log('Attack');
+      }
     }
 
     // if (boostedAttributes.length > 0) {
@@ -303,6 +311,8 @@ export default connect(mapStateToProps, {
   effectCooldown,
   endBattle,
   decrementActiveCoolDown,
+  removeSkillEffects,
+  stopSkill,
   calculateActiveCoolDown,
   hpRegen,
   calculateAttributeBonus,
