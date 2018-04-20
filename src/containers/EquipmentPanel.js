@@ -8,6 +8,7 @@ import {
   restoreHP,
   showDescription,
 } from '../redux/modules/actions';
+import { upgradeItem } from '../redux/modules/inventory';
 
 import ItemDescription from './ItemDescription';
 
@@ -100,16 +101,17 @@ class EquipPanel extends React.Component {
           <div key={i} className={`empty-slot equipped-item ${el}`} />
         ))}
         {battleGear.map((el, i) => (
-          <div
-            key={i}
-            className={`used-slot equipped-item ${el.category} id_${el.id}`}
-            onClick={() => {
-              this.handleClick(el);
-              this.showItemDescription('');
-            }}
-            onMouseEnter={() => this.showItemDescription(el)}
-            onMouseLeave={() => this.showItemDescription('')}
-          />
+          <div key={i}>
+            <div
+              className={`used-slot equipped-item ${el.category} id_${el.id}`}
+              onClick={() => {
+                this.handleClick(el);
+                this.showItemDescription('');
+              }}
+              onMouseEnter={() => this.showItemDescription(el)}
+              onMouseLeave={() => this.showItemDescription('')}
+            />
+          </div>
         ))}
       </div>
     );
@@ -128,4 +130,5 @@ export default connect(mapStateToProps, {
   calculateAttributeBonus,
   restoreHP,
   showDescription,
+  upgradeItem,
 })(EquipPanel);

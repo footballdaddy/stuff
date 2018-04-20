@@ -19,6 +19,10 @@ const initialState = {
   lifeDrain: 0,
 };
 
+// Upgrade
+// Dagger
+// cost: action.item.buyValue ^ action.item.upgradeTimes
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_EQUIPPED':
@@ -35,9 +39,13 @@ export default (state = initialState, action) => {
           };
 
         case 'weapons':
+          let weapon = action.item.dmgRange.map(
+            dmg => dmg + dmg * 0.2 * action.item.upgradeTimes,
+          );
+
           return {
             ...state,
-            baseDamage: action.item.dmgRange,
+            baseDamage: weapon,
             baseHitChance: action.item.hitChance,
           };
 

@@ -8,6 +8,7 @@ import InventoryPanel from '../../containers/InventoryPanel';
 import EquipmentPanel from '../../containers/EquipmentPanel';
 import StatsPanel from '../../containers/StatsPanel';
 import Arena from '../../containers/Arena';
+import Shop from '../../containers/Shop';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -78,6 +79,9 @@ export default class App extends Component {
         </div>
         <div>
           <Arena />
+        </div>
+        <div>
+          <Shop />
         </div>
       </div>
     );

@@ -1,14 +1,15 @@
 const initialState = {
   equipped: [
-    // {
-    //   id: 32,
-    //   category: 'weapons',
-    //   name: "Perun's Anger",
-    //   buyValue: 3000,
-    //   sellValue: 1500,
-    //   hitChance: 0.8,
-    //   dmgRange: [60, 70],
-    // },
+    {
+      id: 32,
+      category: 'weapons',
+      name: "Perun's Anger",
+      buyValue: 3000,
+      sellValue: 1500,
+      hitChance: 0.8,
+      dmgRange: [60, 70],
+      upgradeTimes: 0,
+    },
   ],
 };
 

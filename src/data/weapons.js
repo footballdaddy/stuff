@@ -7,6 +7,7 @@ export const weapons = [
     sellValue: 25,
     hitChance: 0.9,
     dmgRange: [8, 10],
+    upgradeTimes: 0,
   },
 
   {
@@ -77,6 +78,7 @@ export const weapons = [
     sellValue: 1500,
     hitChance: 0.8,
     dmgRange: [60, 70],
+    upgradeTimes: 0,
   },
 
   {

@@ -7,6 +7,7 @@ import {
   calculateAttributeBonus,
   showDescription,
 } from '../redux/modules/actions';
+import { upgradeItem } from '../redux/modules/inventory';
 
 class InventoryPanel extends React.Component {
   handleClick = el => {
@@ -64,6 +65,9 @@ class InventoryPanel extends React.Component {
                   Equip
                   <div className="equip-icon" />
                 </button>
+                <button onClick={() => this.props.upgradeItem(el)}>
+                  Upgrade Item {el.id}
+                </button>
               </div>
             </div>
           ))
@@ -86,4 +90,5 @@ export default connect(mapStateToProps, {
   unequipItem,
   calculateAttributeBonus,
   showDescription,
+  upgradeItem,
 })(InventoryPanel);

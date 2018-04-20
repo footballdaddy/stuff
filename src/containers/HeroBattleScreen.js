@@ -166,7 +166,7 @@ class HeroBattleScreen extends React.Component {
       }
       if (skills[key].activeCoolDown > 0) {
         this.props.decrementActiveCoolDown(key);
-        console.log('Attack');
+        // console.log('Attack');
       }
     }
 
@@ -180,7 +180,9 @@ class HeroBattleScreen extends React.Component {
 
     let minDamage = damage[0];
     let maxDamage = damage[1];
+    // let weaponType = equipped.filter(equip => (equip.id === "32"));
 
+    // if (this.props.equipped) console.log(this.props.equipped);
     if (temporaryEffects.includes({ dmgIncrease: ['all', 0.5] })) {
       minDamage *= 1.5;
       maxDamage *= 1.5;
