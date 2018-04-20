@@ -65,8 +65,22 @@ class InventoryPanel extends React.Component {
                   Equip
                   <div className="equip-icon" />
                 </button>
-                <button onClick={() => this.props.upgradeItem(el)}>
-                  Upgrade Item {el.id}
+
+                <button
+                  onClick={
+                    gold >= Math.pow(2, el.upgradeTimes) * el.buyValue
+                      ? () => {
+                          this.props.upgradeItem(el);
+                        }
+                      : () => ''
+                  }
+                  className={`buy-btn ${
+                    gold >= Math.pow(2, el.upgradeTimes) * el.buyValue
+                      ? 'enabled'
+                      : 'disabled'
+                  }`}
+                >
+                  {Math.pow(2, el.upgradeTimes) * el.buyValue}
                 </button>
               </div>
             </div>

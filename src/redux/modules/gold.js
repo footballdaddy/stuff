@@ -3,6 +3,7 @@ const initialState = { gold: 3000 };
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'BUY_ITEM':
+    case 'UPGRADE_ITEM':
     case 'INN_BUY':
       return { ...state, gold: state.gold - action.item.buyValue };
 
