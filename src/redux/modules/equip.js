@@ -1,16 +1,5 @@
 const initialState = {
-  equipped: [
-    {
-      id: 32,
-      category: 'weapons',
-      name: "Perun's Anger",
-      buyValue: 3000,
-      sellValue: 1500,
-      hitChance: 0.8,
-      dmgRange: [60, 70],
-      upgradeTimes: 0,
-    },
-  ],
+  equipped: [],
 };
 
 export default (state = initialState, action) => {
@@ -65,7 +54,6 @@ export default (state = initialState, action) => {
               ...state.equipped.slice(unequippedIndex + 1),
             ],
           };
-
     case 'END_GAME':
       return state;
 

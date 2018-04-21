@@ -411,3 +411,6 @@ export const calculateActiveCoolDown = key => {
     }
   };
 };
+
+
+let weapon = action.item.dmgRange.map(dmg => dmg * Math.pow(dmg, action.item.upgrade))

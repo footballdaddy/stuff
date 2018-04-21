@@ -5,6 +5,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'EQUIP_ITEM':
+      let armorHealth =
+        state.maxHP + state.maxHP * 0.2 * action.item.upgradeTimes;
+
+      switch (action.item.category) {
+        case 'armors':
+          return {
+            ...state,
+            maxHP: armorHealth,
+          };
+        default:
+          return state;
+      }
+
     case 'INN_BUY':
     case 'HEAL':
       return action.item.restore <= 1

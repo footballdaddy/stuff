@@ -45,7 +45,7 @@ class HeroBattleScreen extends React.Component {
 
   autorun = () => {
     if (this.props.currentHP <= this.props.maxHP) {
-      this.props.hpRegen(0.01);
+      this.props.hpRegen(1);
     }
     if (this.props.opponent != 'none') {
       this.attack();
