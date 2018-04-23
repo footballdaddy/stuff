@@ -5,9 +5,9 @@ const initialState = {
     strength: 10,
     defense: 10,
     agility: 10,
-    vitality: 1000,
+    vitality: 10,
   },
-  boostedAttributes: { strength: 0 },
+  boostedStats: { blockChance: 0, damage: 0, hitChance: 0, armor: 0 },
   attributePoints: 20,
   armor: 0,
   baseBlockChance: 0.05,
@@ -165,15 +165,10 @@ export default (state = initialState, action) => {
     case 'CALCULATE_ATTRIBUTE_BONUS':
       return {
         ...state,
-        blockChance:
-          state.baseBlockChance * (1 + state.attributes.defense * 0.005),
-        hitChance: state.baseHitChance * (1 + state.attributes.agility * 0.005),
-        damage: [
-          state.baseDamage[0] * (1 + state.attributes.strength * 0.01),
-          state.baseDamage[1] * (1 + state.attributes.strength * 0.01),
-        ],
+        blockChance: state.baseBlockChance + state.boostedStats.blockChance,
+        hitChance: state.baseHitChance + state.boostedStats.hitChance,
+        damage: [state.baseDamage[0], state.baseDamage[1]],
       };
-
     case 'NEW_LEVEL_POINTS':
       return {
         ...state,
@@ -182,14 +177,9 @@ export default (state = initialState, action) => {
 
     case 'ADD_EFFECT':
       const increasedStat = action.item.effect.statIncrease;
-      if (Object.keys(state.attributes).includes(increasedStat)) {
+      if (Object.keys(state).includes(increasedStat)) {
         return {
           ...state,
-          attributes: {
-            ...state.attributes,
-            [increasedStat]:
-              state.attributes[increasedStat] + action.item.effect.value,
-          },
           boostedAttributes: {
             ...state.boostedAttributes,
             [increasedStat]: action.item.effect.value,
@@ -218,11 +208,7 @@ export default (state = initialState, action) => {
     case 'REMOVE_SKILL_EFFECTS':
       return {
         ...state,
-        attributes: {
-          ...state.attributes,
-          [action.key]:
-            state.attributes[action.key] - state.boostedAttributes[action.key],
-        },
+        [action.key]: state[action.key] - state.boostedAttributes[action.key],
         boostedAttributes: {
           ...state.boostedAttributes,
           [action.key]: 0,

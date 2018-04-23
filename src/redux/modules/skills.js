@@ -7,8 +7,8 @@ const initialState = {
     activeCoolDown: 0,
     baseActiveCoolDown: 2,
     effect: {
-      statIncrease: 'strength',
-      value: 500,
+      statIncrease: 'baseDamage',
+      value: 10,
     },
     isActive: 'false',
   },
@@ -20,8 +20,8 @@ const initialState = {
     activeCoolDown: 0,
     baseActiveCoolDown: 3,
     effect: {
-      statIncrease: 'agility',
-      value: 5,
+      statIncrease: 'baseHitChance',
+      value: 0.5,
     },
     isActive: 'false',
   },
@@ -33,8 +33,8 @@ const initialState = {
     activeCoolDown: 0,
     baseActiveCoolDown: 3,
     effect: {
-      statIncrease: 'defense',
-      value: 500,
+      statIncrease: 'baseBlockChance',
+      value: 0.5,
     },
     isActive: 'false',
   },

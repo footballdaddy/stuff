@@ -2,8 +2,8 @@ const FighterTypes = ['Knight', 'Fencer', 'Paladin', 'Assassain'];
 const enemyTemplate = {
   name: 'rusalka',
   engTranslation: 'Fighter',
-  maxHP: 1000,
-  currentHP: 1000,
+  maxHP: 100,
+  currentHP: 100,
   hitChance: 0.75,
   damage: [8, 10],
   armor: 0,
